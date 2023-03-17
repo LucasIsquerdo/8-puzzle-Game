@@ -15,7 +15,9 @@ function Puzzle()
     
     const [stateResult,setStateResult] = useState({
         flag: false,
-        execucao: performance.now()
+        execucao: performance.now(),
+        caminho: "",
+        nodes: ""
 
     })
     const [stateFinal, setStatefinal] = useState({
@@ -67,6 +69,11 @@ function Puzzle()
             cell8: state.cell8,
             cell9: "",
         })
+        setStateResult(
+            {
+                flag: false
+            }
+        )
     }
 
 
@@ -79,7 +86,6 @@ function Puzzle()
                 execucao: performance.now()
             }
         )
-        alert(selectState)
     }
 
     var time = 0
@@ -114,6 +120,11 @@ function Puzzle()
         //contar milisegundos
         var fim = performance.now()
         time = 3
+        setStateResult(
+            {
+                flag: false
+            }
+        )
        
     }
 
@@ -174,7 +185,12 @@ function Puzzle()
         
     </div>
     {
-        stateResult.flag? <p className="resultado">Tempo gasto em execução: {stateResult.execucao} ms</p> : ""
+        stateResult.flag? 
+            <div className="resultado">
+                <p >Quantidade de nós visitados: </p>
+                <p>Tempo gasto em execução: {stateResult.execucao} ms</p>
+                <p>Tamanho do caminho da solução: </p>
+            </div> : ""
     }
    
     <div className="container">			
