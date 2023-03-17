@@ -91,6 +91,27 @@
   transform: skew(-21deg);
 }
 
+.btn-reset
+{
+  border-radius: 4px;
+  font-size: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-radius: 5px;
+  border: none;
+  margin-left: 118px;
+  letter-spacing: .02rem;
+  -webkit-transition: .3s all ease;
+  -o-transition: .3s all ease;
+  transition: .3s all ease;
+  position: relative;
+  -webkit-transform: skew(-21deg);
+  -ms-transform: skew(-21deg);
+  transform: skew(-21deg);
+
+}
 
 .btn-aqua {
   background-color: #1c2838;
@@ -113,6 +134,15 @@
   color: #1c2838;
   font-family: fantasy;
   font-size: 18px;
+  margin-bottom: 10px;
+
+}
+
+.label-estado
+{
+  color: #1c2838;
+  font-family: fantasy;
+  font-size: 25px;
   margin-bottom: 10px;
 
 }

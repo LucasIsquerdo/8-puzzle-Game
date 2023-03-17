@@ -49,11 +49,26 @@ function Puzzle()
         cell9: "",
     })
 
+    const resetar = () =>
+    {
+        setStateEmbaralhado({
+            cell1: state.cell1,
+            cell2: state.cell2,
+            cell3: state.cell3,
+            cell4: state.cell4,
+            cell5: state.cell5,
+            cell6: state.cell6,
+            cell7: state.cell7,
+            cell8: state.cell8,
+            cell9: "",
+        })
+    }
+
     const embaralhar = () =>
     {
         var lista = [1,2,3,4,5,6,7,8,""]
         var aux
-
+        //método Fisher-Yates
         for(let i = lista.length-1;i>0;i--)
         {   
            const random =  Math.floor(Math.random() * i)
@@ -91,10 +106,13 @@ function Puzzle()
             <small className="text">Inteligência Artificial - 8 puzzle Game</small>
             </a>
         </div>
-    </nav>  
+    </nav> 
+     
       <div className="container">			
 			<div className="row mt-3">
 				<div className="col-4 left">
+                <label className="label-estado">Estado Inicial</label> 
+                <button onClick={resetar} className="btn-reset btn-aqua">Resetar</button>
 					<div className="grid-box">
 						<div className="cell">{stateEmbaralhado.cell1}</div>
 						<div className="cell">{stateEmbaralhado.cell2}</div>
@@ -133,6 +151,7 @@ function Puzzle()
     <div className="container">			
 			<div className="row mt-3">
 				<div className="col-4 right">
+                <label className="label-estado">Estado Final</label>  
 					<div className="grid-box">
                     <div className="cell">{stateFinal.cell1}</div>
                     <div className="cell">{stateFinal.cell2}</div>
