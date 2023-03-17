@@ -63,6 +63,10 @@ function Puzzle()
             cell9: "",
         })
     }
+    const resolver = () =>
+    {
+        alert(selectState)
+    }
 
     const embaralhar = () =>
     {
@@ -103,7 +107,7 @@ function Puzzle()
                 height="70"
                 loading="lazy"
             />
-            <small className="text">Inteligência Artificial - 8 puzzle Game</small>
+            <small className="text">Inteligência Artificial - 8 Puzzle Game</small>
             </a>
         </div>
     </nav> 
@@ -144,9 +148,8 @@ function Puzzle()
         <option value={2}>Busca Cega (Profundidade)</option>
         <option value={3}>A*</option> */}
     </select>
-    
     <button onClick={embaralhar} className="btn btn-aqua">Embaralhar</button>
-    <button className="btn btn-aqua">{}Resolver</button>
+    <button className="btn btn-aqua" onClick={resolver}>Resolver</button>
     </div>
     <div className="container">			
 			<div className="row mt-3">
