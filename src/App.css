@@ -102,3 +102,17 @@
   background-color: #e0f2fc;
   color: #1c2838;
 }
+
+.select
+{
+ width: 380px;
+}
+
+.label
+{
+  color: #1c2838;
+  font-family: fantasy;
+  font-size: 18px;
+  margin-bottom: 10px;
+
+}
