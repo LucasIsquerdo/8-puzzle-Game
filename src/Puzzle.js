@@ -87,8 +87,6 @@ function Puzzle()
             }
         )
     }
-
-    var time = 0
     
     const embaralhar = () =>
     {
@@ -119,7 +117,6 @@ function Puzzle()
         })
         //contar milisegundos
         var fim = performance.now()
-        time = 3
         setStateResult(
             {
                 flag: false
