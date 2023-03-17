@@ -12,7 +12,12 @@ function Puzzle()
            { id:2, nome: "Busca Cega (Profundidade)"},
            { id:3, nome: "Busca A*"}
         ]
+    
+    const [stateResult,setStateResult] = useState({
+        flag: false,
+        execucao: performance.now()
 
+    })
     const [stateFinal, setStatefinal] = useState({
         cell1: "?",
         cell2: "?",
@@ -63,15 +68,27 @@ function Puzzle()
             cell9: "",
         })
     }
+
+
+
     const resolver = () =>
     {
+        setStateResult(
+            {
+                flag: true,
+                execucao: performance.now()
+            }
+        )
         alert(selectState)
     }
 
+    var time = 0
+    
     const embaralhar = () =>
     {
         var lista = [1,2,3,4,5,6,7,8,""]
         var aux
+        var inicio = performance.now()
         //método Fisher-Yates
         for(let i = lista.length-1;i>0;i--)
         {   
@@ -94,6 +111,10 @@ function Puzzle()
             cell8: lista[7],
             cell9: lista[8],
         })
+        //contar milisegundos
+        var fim = performance.now()
+        time = 3
+       
     }
 
     let saida =
@@ -134,23 +155,28 @@ function Puzzle()
 		</div>
     <div className="center">
         
-    <h3 className="title-game">Começar o Jogo:</h3>
-    <label className="label">Selecione o algoritmo desejado:</label>
-    <select className="form-select select" value={selectState} onChange={e=>setStateSelect(e.target.value)}>
-        {values.map((item)=>
-           (
-             <option value={item.id}>{item.nome}</option>
-           )
-            
-        )}
-        {/* <option value={0} disabled selected>Selecione o Algoritmo desejado</option>
-        <option value={1}>Busca Cega (Largura)</option>
-        <option value={2}>Busca Cega (Profundidade)</option>
-        <option value={3}>A*</option> */}
-    </select>
-    <button onClick={embaralhar} className="btn btn-aqua">Embaralhar</button>
-    <button className="btn btn-aqua" onClick={resolver}>Resolver</button>
+        <h3 className="title-game">Começar o Jogo:</h3>
+        <label className="label">Selecione o algoritmo desejado:</label>
+        <select className="form-select select" value={selectState} onChange={e=>setStateSelect(e.target.value)}>
+            {values.map((item)=>
+            (
+                <option value={item.id}>{item.nome}</option>
+            )
+                
+            )}
+            {/* <option value={0} disabled selected>Selecione o Algoritmo desejado</option>
+            <option value={1}>Busca Cega (Largura)</option>
+            <option value={2}>Busca Cega (Profundidade)</option>
+            <option value={3}>A*</option> */}
+        </select>
+        <button onClick={embaralhar} className="btn btn-aqua">Embaralhar</button>
+        <button className="btn btn-aqua" onClick={resolver}>Resolver</button>
+        
     </div>
+    {
+        stateResult.flag? <p className="resultado">Tempo gasto em execução: {stateResult.execucao} ms</p> : ""
+    }
+   
     <div className="container">			
 			<div className="row mt-3">
 				<div className="col-4 right">
@@ -167,9 +193,11 @@ function Puzzle()
                     <div className="cell"> {stateFinal.cell9}</div>
 					</div>
 				</div>
+                
 			</div>
 			<div className="spacer"></div>
-		</div>
+            
+	</div>
     </>
     return(saida)
 }
