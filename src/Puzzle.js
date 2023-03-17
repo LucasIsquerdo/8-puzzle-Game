@@ -83,7 +83,7 @@ function Puzzle()
         setStateResult(
             {
                 flag: true,
-                execucao: performance.now()
+                execucao: performance.now().toFixed(4)
             }
         )
     }

@@ -62,7 +62,7 @@
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  border: 1px solid #1c2838;
+  border: 4px dashed #e0f2fc;
   border-radius: 10px;
   padding: 10px;
 }
