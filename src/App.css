@@ -166,3 +166,118 @@
   margin-bottom: 10px;
 
 }
+
+@media screen and (max-width: 768px){
+  
+  .select
+  {
+    width: 250px;
+  }
+  .right
+  {
+    width: 70%;
+    margin: 0;
+    position: absolute;
+    top: 200%;
+    left: 60%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .center
+  {
+    width: 70%;
+    margin: 0;
+    position: absolute;
+    top: 140%;
+    left: 60%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .resultado
+  {
+    background-color: #1c2838;
+    color:#e0f2fc;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    margin-top: 50px;
+    width: 80%;
+    margin: 0;
+    position: absolute;
+    top: 260%;
+    left: 60%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: 4px dashed #e0f2fc;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .left
+  {
+    width: 70%;
+    margin: 0;
+    position: absolute;
+    top: 60%;
+    left: 60%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .btn {
+    border-radius: 4px;
+    font-size: 18px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 40px;
+    margin-left: 50px;
+    letter-spacing: .02rem;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+    position: relative;
+    -webkit-transform: skew(-21deg);
+    -ms-transform: skew(-21deg);
+    transform: skew(-21deg);
+  }
+  .title-game
+  {
+    margin-top: 70px;
+  }
+
+  .btn-reset
+  {
+    border-radius: 4px;
+    font-size: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 120px;
+    margin-bottom: 10px;
+    letter-spacing: .02rem;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+    position: relative;
+    -webkit-transform: skew(-21deg);
+    -ms-transform: skew(-21deg);
+    transform: skew(-21deg);
+
+  }
+  .color-nav
+  {
+    width: 134.5%;
+  }
+  .text
+  {
+    color: #e0f2fc;
+    font-family: fantasy;
+    font-size: 23px;
+  }
+  
+}
