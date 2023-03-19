@@ -45,18 +45,6 @@ function Puzzle()
         cell9: 0,
     })
 
-    const [stateCorrect,setStateCorrect] = useState({
-        cell1: 1,
-        cell2: 2,
-        cell3: 3,
-        cell4: 4,
-        cell5: 5,
-        cell6: 6,
-        cell7: 7,
-        cell8: 8,
-        cell9: 0,
-    })
-
 
     const [stateEmbaralhado, setStateEmbaralhado] = useState({
         cell1: state.cell1,
@@ -163,156 +151,27 @@ function Puzzle()
 
     }
     
-    const [stateCaminho, setStateCaminho] = useState([])
-    const [statePilha, setStatePilha] = useState([])
+    // const [stateCaminho, setStateCaminho] = useState()
+    // const [statePilha, setStatePilha] = useState([]
+    // )
 
 
-    function pushPilha(lista){
-        setStatePilha(statePilha=>[...statePilha, lista])
-    }
+    // function pushPilha(lista){
+    //     setStatePilha([...statePilha, lista])
+    // }
 
-    function isEmpty()
-    {
-        return statePilha.length === 0
+    // function popPilha()
+    // {
+    //     if(statePilha.length>0)
+    //     {
+    //         const conteudo = [...statePilha]
+    //         var removido = conteudo.pop()
+    //         setStatePilha(conteudo)
+    //     }
+    //     return removido
+    // }
 
-    }
-    function possibilidades()
-    {
-        var listaDir = []
-        var listaEsq = []
-        var listaCima = []
-        var listaBaixo = []
-        pushPilha(estadoInicial)
-        while(!isEmpty())
-        {
-            var elemento = statePilha.pop()
-                if(elemento[0] == 0)
-                {
-                    listaDir = moverPeçaDir(elemento)            
-                    //setStatePilha([...statePilha, listaDir])                    
-                    pushPilha(listaDir)
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    //setStatePilha([...statePilha, listaBaixo])
-                    pushPilha(listaBaixo)
-                    elemento = moverPeçaCima(elemento)
-                }
-                else if(elemento[1] == 0)
-                {
-                    listaDir = moverPeçaDir(elemento)            
-                    // setStatePilha([...statePilha, listaDir])     
-                    pushPilha(listaDir)               
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    // setStatePilha([...statePilha, listaBaixo])
-                    pushPilha(listaBaixo)
-                    elemento = moverPeçaCima(elemento)
-                    listaEsq = moverPeçaEsq(elemento)            
-                    // setStatePilha([...statePilha, listaEsq])     
-                    pushPilha(listaEsq)               
-                    elemento = moverPeçaDir(elemento)
-                }
-                else if(elemento[2] == 0)
-                {
-                    listaEsq = moverPeçaEsq(elemento)            
-                    // setStatePilha([...statePilha, listaEsq])       
-                    pushPilha(listaEsq)             
-                    elemento = moverPeçaDir(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    // setStatePilha([...statePilha, listaBaixo])
-                    pushPilha(listaBaixo)
-                    elemento = moverPeçaCima(elemento)
-                }
-                else if(elemento[3] == 0)
-                {
-                    listaDir = moverPeçaDir(elemento)            
-                    // setStatePilha([...statePilha, listaDir])       
-                    pushPilha(listaDir)             
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    // setStatePilha([...statePilha, listaBaixo])
-                    pushPilha(listaBaixo)
-                    elemento = moverPeçaCima(elemento)
-                    listaCima = moverPeçaCima(elemento)
-                    // setStatePilha([...statePilha, listaCima])
-                    pushPilha(listaCima)
-                    elemento = moverPeçaBaixo(elemento)
-                }
-                else if(elemento[4]==0)
-                {
-                    listaDir = moverPeçaDir(elemento)            
-                    // setStatePilha([...statePilha, listaDir])    
-                    pushPilha(listaDir)                
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    // setStatePilha([...statePilha, listaBaixo])
-                    pushPilha(listaBaixo)
-                    elemento = moverPeçaCima(elemento)
-                    listaCima = moverPeçaCima(elemento)
-                    // setStatePilha([...statePilha, listaCima])
-                    pushPilha(listaCima)
-                    elemento = moverPeçaBaixo(elemento)
-                    listaEsq = moverPeçaEsq(elemento)            
-                    // setStatePilha([...statePilha, listaEsq])  
-                    pushPilha(listaEsq)                  
-                    elemento = moverPeçaDir(elemento)
-                }
-                else if(elemento[5] == 0)
-                {
-                    listaCima = moverPeçaCima(elemento)
-                    // setStatePilha([...statePilha, listaCima])
-                    pushPilha(listaCima)
-                    elemento = moverPeçaBaixo(elemento)
-                    listaEsq = moverPeçaEsq(elemento)            
-                    // setStatePilha([...statePilha, listaEsq])      
-                    pushPilha(listaEsq)              
-                    elemento = moverPeçaDir(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    // setStatePilha([...statePilha, listaBaixo])
-                    pushPilha(listaBaixo)
-                    elemento = moverPeçaCima(elemento)
-                }
-                else if(elemento[6] == 0)
-                {
-                    listaCima = moverPeçaCima(elemento)
-                    // setStatePilha([...statePilha, listaCima])
-                    pushPilha(listaCima)
-                    elemento = moverPeçaBaixo(elemento)
-                    listaDir = moverPeçaDir(elemento)            
-                    // setStatePilha([...statePilha, listaDir])    
-                    pushPilha(listaDir)                
-                    elemento = moverPeçaEsq(elemento)
-                }
-                else if(elemento[7]==0)
-                {
-                    listaCima = moverPeçaCima(elemento)
-                    // setStatePilha([...statePilha, listaCima])
-                    pushPilha(listaCima)
-                    elemento = moverPeçaBaixo(elemento)
-                    listaDir = moverPeçaDir(elemento)            
-                    // setStatePilha([...statePilha, listaDir])     
-                    pushPilha(listaDir)               
-                    elemento = moverPeçaEsq(elemento)
-                    listaEsq = moverPeçaEsq(elemento)            
-                    // setStatePilha([...statePilha, listaEsq])    
-                    pushPilha(listaEsq)                
-                    elemento = moverPeçaDir(elemento)
-
-                }
-                else if(elemento[8]==0)
-                {
-                    listaEsq = moverPeçaEsq(elemento)            
-                    // setStatePilha([...statePilha, listaEsq])      
-                    pushPilha(listaEsq)              
-                    elemento = moverPeçaDir(elemento)
-                    listaCima = moverPeçaCima(elemento)
-                    // setStatePilha([...statePilha, listaCima])
-                    pushPilha(listaCima)
-                    elemento = moverPeçaBaixo(elemento)
-                }
-           
-        }
-    }
+    
     const listaFinal = [1,2,3,4,5,6,7,8,0]
     // const resolver = () =>
     // {
@@ -837,6 +696,306 @@ function Puzzle()
                 
     //     }
     // }
+    
+    // const [stateFila, setStateFila] = useState([]);
+    // const [stateVisitados, setStateVisitados] = useState([]);
+
+    // function addVisitados(elemento) {
+    //     setStateVisitados(fila => [...fila, elemento]);
+    //   }
+
+    // function empilhar(elemento) {
+    //   setStateFila(fila => [...fila, elemento]);
+    // }
+  
+    // function desempilhar() {
+    //   setStateFila(fila => {
+    //     const conteudo = [...fila];
+    //     conteudo.shift();
+    //     return conteudo;
+    //   });
+    // }
+    // while(stateFila.length>0)
+    // {
+    //     var elemento = desempilhar()
+    //     addVisitados(elemento)
+    //     if(elemento[0] == 0)
+    //     {
+    //             listaDir = moverPeçaDir(elemento)            
+    //             //setStatePilha([...statePilha, listaDir])                    
+    //             empilhar(listaDir)
+    //             elemento = moverPeçaEsq(elemento)
+    //             listaBaixo = moverPeçaBaixo(elemento)
+    //             //setStatePilha([...statePilha, listaBaixo])
+    //             empilhar(listaBaixo)
+    //             elemento = moverPeçaCima(elemento)
+    //         }
+        
+    //     else if(elemento[1] == 0)
+    //     {
+    //         listaDir = moverPeçaDir(elemento)            
+    //         // setStatePilha([...statePilha, listaDir])     
+    //         empilhar(listaDir)               
+    //         elemento = moverPeçaEsq(elemento)
+    //         listaBaixo = moverPeçaBaixo(elemento)
+    //         // setStatePilha([...statePilha, listaBaixo])
+    //         empilhar(listaBaixo)
+    //         elemento = moverPeçaCima(elemento)
+    //         listaEsq = moverPeçaEsq(elemento)            
+    //         // setStatePilha([...statePilha, listaEsq])     
+    //         empilhar(listaEsq)               
+    //         elemento = moverPeçaDir(elemento)
+    //     }
+    //     else if(elemento[2] == 0)
+    //     {
+    //         listaEsq = moverPeçaEsq(elemento)            
+    //         // setStatePilha([...statePilha, listaEsq])       
+    //         empilhar(listaEsq)             
+    //         elemento = moverPeçaDir(elemento)
+    //         listaBaixo = moverPeçaBaixo(elemento)
+    //         // setStatePilha([...statePilha, listaBaixo])
+    //         empilhar(listaBaixo)
+    //         elemento = moverPeçaCima(elemento)
+    //     }
+    //     else if(elemento[3] == 0)
+    //     {
+    //         listaDir = moverPeçaDir(elemento)            
+    //         // setStatePilha([...statePilha, listaDir])       
+    //         empilhar(listaDir)             
+    //         elemento = moverPeçaEsq(elemento)
+    //         listaBaixo = moverPeçaBaixo(elemento)
+    //         // setStatePilha([...statePilha, listaBaixo])
+    //         empilhar(listaBaixo)
+    //         elemento = moverPeçaCima(elemento)
+    //         listaCima = moverPeçaCima(elemento)
+    //         // setStatePilha([...statePilha, listaCima])
+    //         empilhar(listaCima)
+    //         elemento = moverPeçaBaixo(elemento)
+    //     }
+    //     else if(elemento[4]==0)
+    //     {
+    //         listaDir = moverPeçaDir(elemento)            
+    //         // setStatePilha([...statePilha, listaDir])    
+    //         empilhar(listaDir)                
+    //         elemento = moverPeçaEsq(elemento)
+    //         listaBaixo = moverPeçaBaixo(elemento)
+    //         // setStatePilha([...statePilha, listaBaixo])
+    //         empilhar(listaBaixo)
+    //         elemento = moverPeçaCima(elemento)
+    //         listaCima = moverPeçaCima(elemento)
+    //         // setStatePilha([...statePilha, listaCima])
+    //         empilhar(listaCima)
+    //         elemento = moverPeçaBaixo(elemento)
+    //         listaEsq = moverPeçaEsq(elemento)            
+    //         // setStatePilha([...statePilha, listaEsq])  
+    //         empilhar(listaEsq)                  
+    //         elemento = moverPeçaDir(elemento)
+    //     }
+    //     else if(elemento[5] == 0)
+    //     {
+    //         listaCima = moverPeçaCima(elemento)
+    //         // setStatePilha([...statePilha, listaCima])
+    //         empilhar(listaCima)
+    //         elemento = moverPeçaBaixo(elemento)
+    //         listaEsq = moverPeçaEsq(elemento)            
+    //         // setStatePilha([...statePilha, listaEsq])      
+    //         empilhar(listaEsq)              
+    //         elemento = moverPeçaDir(elemento)
+    //         listaBaixo = moverPeçaBaixo(elemento)
+    //         // setStatePilha([...statePilha, listaBaixo])
+    //         empilhar(listaBaixo)
+    //         elemento = moverPeçaCima(elemento)
+    //     }
+    //     else if(elemento[6] == 0)
+    //     {
+    //         listaCima = moverPeçaCima(elemento)
+    //         // setStatePilha([...statePilha, listaCima])
+    //         empilhar(listaCima)
+    //         elemento = moverPeçaBaixo(elemento)
+    //         listaDir = moverPeçaDir(elemento)            
+    //         // setStatePilha([...statePilha, listaDir])    
+    //         empilhar(listaDir)                
+    //         elemento = moverPeçaEsq(elemento)
+    //     }
+    //     else if(elemento[7]==0)
+    //     {
+    //         listaCima = moverPeçaCima(elemento)
+    //         // setStatePilha([...statePilha, listaCima])
+    //         empilhar(listaCima)
+    //         elemento = moverPeçaBaixo(elemento)
+    //         listaDir = moverPeçaDir(elemento)            
+    //         // setStatePilha([...statePilha, listaDir])     
+    //         empilhar(listaDir)               
+    //         elemento = moverPeçaEsq(elemento)
+    //         listaEsq = moverPeçaEsq(elemento)            
+    //         // setStatePilha([...statePilha, listaEsq])    
+    //         empilhar(listaEsq)                
+    //         elemento = moverPeçaDir(elemento)
+
+    //     }
+    //     else if(elemento[8]==0)
+    //     {
+    //         listaEsq = moverPeçaEsq(elemento)            
+    //         // setStatePilha([...statePilha, listaEsq])      
+    //         empilhar(listaEsq)              
+    //         elemento = moverPeçaDir(elemento)
+    //         listaCima = moverPeçaCima(elemento)
+    //         // setStatePilha([...statePilha, listaCima])
+    //         empilhar(listaCima)
+    //         elemento = moverPeçaBaixo(elemento)
+    //     }
+    // }
+    function Fila()
+    {
+        this.fila = new Array()
+        this.enqueue = function (elemento)
+        {
+            this.fila[this.fila.length] = elemento
+        }
+        this.dequeue = function()
+        {
+            if(this.fila.length==0)
+                return null
+            else
+            {
+                var removido = this.fila[0]
+                this.fila.splice(0,1)
+                return removido
+            }
+        }
+        this.Exibe = function(){
+            let i = 0
+            while(i<this.fila.length > 0){
+                return this.fila[i];}
+        }
+    
+    
+   
+    }    
+    var fila = new Array()
+    var visitados = new Array()
+    function resolucao () 
+    {
+       
+        var listaBaixo = new Array()
+        var listaCima = new Array()
+        var listaDir = new Array()
+        var listaEsq = new Array()
+        let i = 0
+        var elemento = estadoInicial
+        fila.push(elemento.concat())
+        visitados.push(elemento.concat())
+        while(fila.length>0)
+        {
+            elemento = fila.shift()
+            if(elemento[0] == 0)
+            {
+                listaDir = moverPeçaDir(elemento)
+                if(!visitados.includes(listaDir))          
+                    fila.push(listaDir.concat())
+                //alert("1º elemento "+fila[i])
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)                          
+                // fila.push(listaBaixo)
+                fila.push(listaBaixo.concat())
+                //alert("2º elemento "+fila[i])
+                elemento = moverPeçaCima(elemento)
+            }
+            else if(elemento[1] == 0)
+            {
+                listaDir = moverPeçaDir(elemento)            
+                fila.push(listaDir.concat())              
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                fila.push(listaBaixo.concat())
+                elemento = moverPeçaCima(elemento)
+                listaEsq = moverPeçaEsq(elemento)            
+                fila.push(listaEsq.concat())           
+                elemento = moverPeçaDir(elemento)
+            }
+            else if(elemento[2] == 0)
+            {
+                listaEsq = moverPeçaEsq(elemento)            
+                fila.push(listaEsq.concat())            
+                elemento = moverPeçaDir(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                fila.push(listaBaixo.concat())
+                elemento = moverPeçaCima(elemento)
+            }
+            else if(elemento[3] == 0)
+            {
+                listaDir = moverPeçaDir(elemento)            
+                fila.push(listaDir.concat())           
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                fila.push(listaBaixo.concat())
+                elemento = moverPeçaCima(elemento)
+                listaCima = moverPeçaCima(elemento)
+                fila.push(listaCima.concat())
+                elemento = moverPeçaBaixo(elemento)
+            }
+            else if(elemento[4]==0)
+            {
+                listaDir = moverPeçaDir(elemento)            
+                fila.push(listaDir.concat())              
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                fila.push(listaBaixo.concat())
+                elemento = moverPeçaCima(elemento)
+                listaCima = moverPeçaCima(elemento)
+                fila.push(listaCima.concat())
+                elemento = moverPeçaBaixo(elemento)
+                listaEsq = moverPeçaEsq(elemento)            
+                fila.push(listaEsq.concat())             
+                elemento = moverPeçaDir(elemento)
+            }
+            else if(elemento[5] == 0)
+            {
+                listaCima = moverPeçaCima(elemento)
+                fila.push(listaCima.concat())
+                elemento = moverPeçaBaixo(elemento)
+                listaEsq = moverPeçaEsq(elemento)            
+                fila.push(listaEsq.concat())      
+                elemento = moverPeçaDir(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                fila.push(listaBaixo.concat())
+                elemento = moverPeçaCima(elemento)
+            }
+            else if(elemento[6] == 0)
+            {
+                listaCima = moverPeçaCima(elemento)
+                fila.push(listaCima.concat())
+                elemento = moverPeçaBaixo(elemento)
+                listaDir = moverPeçaDir(elemento)            
+                fila.push(listaDir.concat())                
+                elemento = moverPeçaEsq(elemento)
+            }
+            else if(elemento[7]==0)
+            {
+                listaCima = moverPeçaCima(elemento)
+                fila.push(listaCima.concat())
+                elemento = moverPeçaBaixo(elemento)
+                listaDir = moverPeçaDir(elemento)            
+                fila.push(listaDir.concat())            
+                elemento = moverPeçaEsq(elemento)
+                listaEsq = moverPeçaEsq(elemento)            
+                fila.push(listaEsq.concat())           
+                elemento = moverPeçaDir(elemento)
+
+            }
+            else if(elemento[8]==0)
+            {
+                listaEsq = moverPeçaEsq(elemento)            
+                fila.push(listaEsq.concat())            
+                elemento = moverPeçaDir(elemento)
+                listaCima = moverPeçaCima(elemento)
+                fila.push(listaCima.concat())
+                elemento = moverPeçaBaixo(elemento)
+            }
+        }
+        
+    }
+
     const estadoInicial = [
         stateEmbaralhado.cell1,
         stateEmbaralhado.cell2,
@@ -850,10 +1009,10 @@ function Puzzle()
 
     ]
     const resolver = () =>
-    {
-        
-        possibilidades()
-        alert(`Conteúdo da pilha: ${statePilha.join(", ")}`);
+    {        
+        resolucao()
+        // for(let i=0; i<fila.length; i++)
+        //alert(fila)
         // while(parada == false)
         // {
             
