@@ -164,16 +164,16 @@ function Puzzle()
     }
     
     const [stateCaminho, setStateCaminho] = useState([])
-    const [statePilha, setStatePilha] = useState([[]])
+    const [statePilha, setStatePilha] = useState([])
 
 
     function pushPilha(lista){
-        setStatePilha([...statePilha, lista])
+        setStatePilha(statePilha=>[...statePilha, lista])
     }
 
     function isEmpty()
     {
-        return statePilha.length == 0
+        return statePilha.length === 0
 
     }
     function possibilidades()
@@ -182,116 +182,135 @@ function Puzzle()
         var listaEsq = []
         var listaCima = []
         var listaBaixo = []
+        pushPilha(estadoInicial)
         while(!isEmpty())
         {
             var elemento = statePilha.pop()
-            alert(elemento)
-            var cont = verificaLista(elemento)
-            if(cont == 0)
-                setStateCaminho([...setStateCaminho, elemento])
-            else
-            {
                 if(elemento[0] == 0)
                 {
                     listaDir = moverPeçaDir(elemento)            
-                    setStatePilha([...statePilha, listaDir])                    
+                    //setStatePilha([...statePilha, listaDir])                    
+                    pushPilha(listaDir)
                     elemento = moverPeçaEsq(elemento)
                     listaBaixo = moverPeçaBaixo(elemento)
-                    setStatePilha([...statePilha, listaBaixo])
+                    //setStatePilha([...statePilha, listaBaixo])
+                    pushPilha(listaBaixo)
                     elemento = moverPeçaCima(elemento)
                 }
                 else if(elemento[1] == 0)
                 {
                     listaDir = moverPeçaDir(elemento)            
-                    setStatePilha([...statePilha, listaDir])                    
+                    // setStatePilha([...statePilha, listaDir])     
+                    pushPilha(listaDir)               
                     elemento = moverPeçaEsq(elemento)
                     listaBaixo = moverPeçaBaixo(elemento)
-                    setStatePilha([...statePilha, listaBaixo])
+                    // setStatePilha([...statePilha, listaBaixo])
+                    pushPilha(listaBaixo)
                     elemento = moverPeçaCima(elemento)
                     listaEsq = moverPeçaEsq(elemento)            
-                    setStatePilha([...statePilha, listaEsq])                    
+                    // setStatePilha([...statePilha, listaEsq])     
+                    pushPilha(listaEsq)               
                     elemento = moverPeçaDir(elemento)
                 }
                 else if(elemento[2] == 0)
                 {
                     listaEsq = moverPeçaEsq(elemento)            
-                    setStatePilha([...statePilha, listaEsq])                    
+                    // setStatePilha([...statePilha, listaEsq])       
+                    pushPilha(listaEsq)             
                     elemento = moverPeçaDir(elemento)
                     listaBaixo = moverPeçaBaixo(elemento)
-                    setStatePilha([...statePilha, listaBaixo])
+                    // setStatePilha([...statePilha, listaBaixo])
+                    pushPilha(listaBaixo)
                     elemento = moverPeçaCima(elemento)
                 }
                 else if(elemento[3] == 0)
                 {
                     listaDir = moverPeçaDir(elemento)            
-                    setStatePilha([...statePilha, listaDir])                    
+                    // setStatePilha([...statePilha, listaDir])       
+                    pushPilha(listaDir)             
                     elemento = moverPeçaEsq(elemento)
                     listaBaixo = moverPeçaBaixo(elemento)
-                    setStatePilha([...statePilha, listaBaixo])
+                    // setStatePilha([...statePilha, listaBaixo])
+                    pushPilha(listaBaixo)
                     elemento = moverPeçaCima(elemento)
                     listaCima = moverPeçaCima(elemento)
-                    setStatePilha([...statePilha, listaCima])
+                    // setStatePilha([...statePilha, listaCima])
+                    pushPilha(listaCima)
                     elemento = moverPeçaBaixo(elemento)
                 }
                 else if(elemento[4]==0)
                 {
                     listaDir = moverPeçaDir(elemento)            
-                    setStatePilha([...statePilha, listaDir])                    
+                    // setStatePilha([...statePilha, listaDir])    
+                    pushPilha(listaDir)                
                     elemento = moverPeçaEsq(elemento)
                     listaBaixo = moverPeçaBaixo(elemento)
-                    setStatePilha([...statePilha, listaBaixo])
+                    // setStatePilha([...statePilha, listaBaixo])
+                    pushPilha(listaBaixo)
                     elemento = moverPeçaCima(elemento)
                     listaCima = moverPeçaCima(elemento)
-                    setStatePilha([...statePilha, listaCima])
+                    // setStatePilha([...statePilha, listaCima])
+                    pushPilha(listaCima)
                     elemento = moverPeçaBaixo(elemento)
                     listaEsq = moverPeçaEsq(elemento)            
-                    setStatePilha([...statePilha, listaEsq])                    
+                    // setStatePilha([...statePilha, listaEsq])  
+                    pushPilha(listaEsq)                  
                     elemento = moverPeçaDir(elemento)
                 }
                 else if(elemento[5] == 0)
                 {
                     listaCima = moverPeçaCima(elemento)
-                    setStatePilha([...statePilha, listaCima])
+                    // setStatePilha([...statePilha, listaCima])
+                    pushPilha(listaCima)
                     elemento = moverPeçaBaixo(elemento)
                     listaEsq = moverPeçaEsq(elemento)            
-                    setStatePilha([...statePilha, listaEsq])                    
+                    // setStatePilha([...statePilha, listaEsq])      
+                    pushPilha(listaEsq)              
                     elemento = moverPeçaDir(elemento)
                     listaBaixo = moverPeçaBaixo(elemento)
-                    setStatePilha([...statePilha, listaBaixo])
+                    // setStatePilha([...statePilha, listaBaixo])
+                    pushPilha(listaBaixo)
                     elemento = moverPeçaCima(elemento)
                 }
                 else if(elemento[6] == 0)
                 {
                     listaCima = moverPeçaCima(elemento)
-                    setStatePilha([...statePilha, listaCima])
+                    // setStatePilha([...statePilha, listaCima])
+                    pushPilha(listaCima)
                     elemento = moverPeçaBaixo(elemento)
                     listaDir = moverPeçaDir(elemento)            
-                    setStatePilha([...statePilha, listaDir])                    
+                    // setStatePilha([...statePilha, listaDir])    
+                    pushPilha(listaDir)                
                     elemento = moverPeçaEsq(elemento)
                 }
                 else if(elemento[7]==0)
                 {
                     listaCima = moverPeçaCima(elemento)
-                    setStatePilha([...statePilha, listaCima])
+                    // setStatePilha([...statePilha, listaCima])
+                    pushPilha(listaCima)
                     elemento = moverPeçaBaixo(elemento)
                     listaDir = moverPeçaDir(elemento)            
-                    setStatePilha([...statePilha, listaDir])                    
+                    // setStatePilha([...statePilha, listaDir])     
+                    pushPilha(listaDir)               
                     elemento = moverPeçaEsq(elemento)
                     listaEsq = moverPeçaEsq(elemento)            
-                    setStatePilha([...statePilha, listaEsq])                    
+                    // setStatePilha([...statePilha, listaEsq])    
+                    pushPilha(listaEsq)                
                     elemento = moverPeçaDir(elemento)
 
                 }
                 else if(elemento[8]==0)
                 {
                     listaEsq = moverPeçaEsq(elemento)            
-                    setStatePilha([...statePilha, listaEsq])                    
+                    // setStatePilha([...statePilha, listaEsq])      
+                    pushPilha(listaEsq)              
                     elemento = moverPeçaDir(elemento)
                     listaCima = moverPeçaCima(elemento)
-                    setStatePilha([...statePilha, listaCima])
+                    // setStatePilha([...statePilha, listaCima])
+                    pushPilha(listaCima)
                     elemento = moverPeçaBaixo(elemento)
                 }
-           }
+           
         }
     }
     const listaFinal = [1,2,3,4,5,6,7,8,0]
@@ -818,23 +837,23 @@ function Puzzle()
                 
     //     }
     // }
+    const estadoInicial = [
+        stateEmbaralhado.cell1,
+        stateEmbaralhado.cell2,
+        stateEmbaralhado.cell3,
+        stateEmbaralhado.cell4,
+        stateEmbaralhado.cell5,
+        stateEmbaralhado.cell6,
+        stateEmbaralhado.cell7,
+        stateEmbaralhado.cell8,
+        stateEmbaralhado.cell9,
+
+    ]
     const resolver = () =>
     {
-        const estadoInicial = [
-            stateEmbaralhado.cell1,
-            stateEmbaralhado.cell2,
-            stateEmbaralhado.cell3,
-            stateEmbaralhado.cell4,
-            stateEmbaralhado.cell5,
-            stateEmbaralhado.cell6,
-            stateEmbaralhado.cell7,
-            stateEmbaralhado.cell8,
-            stateEmbaralhado.cell9,
-    
-        ]
-        pushPilha(estadoInicial)
+        
         possibilidades()
-        // alert(`Conteúdo da pilha: ${statePilha.join(", ")}`);
+        alert(`Conteúdo da pilha: ${statePilha.join(", ")}`);
         // while(parada == false)
         // {
             
