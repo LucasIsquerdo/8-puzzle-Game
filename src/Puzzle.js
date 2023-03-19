@@ -172,7 +172,10 @@ function Puzzle()
     // }
 
     
-    const listaFinal = [1,2,3,4,5,6,7,8,0]
+    const listaFinal = [6,4,1,8,2,3,0,7,5]
+
+
+
     // const resolver = () =>
     // {
 
@@ -882,116 +885,173 @@ function Puzzle()
         var listaDir = new Array()
         var listaEsq = new Array()
         let i = 0
+        var bool
         var elemento = estadoInicial
         fila.push(elemento.concat())
-        visitados.push(elemento.concat())
         while(fila.length>0)
         {
             elemento = fila.shift()
+            var cont = verificaLista(elemento)
+            if(cont == 0)
+             {    
+                     
+                console.log(fila.join("\n"))
+                break
+            }
+            else
+            {
             if(elemento[0] == 0)
             {
                 listaDir = moverPeçaDir(elemento)
-                if(!visitados.includes(listaDir))          
+                bool = fila.includes(listaDir)
+                if(!bool)          
                     fila.push(listaDir.concat())
                 //alert("1º elemento "+fila[i])
                 elemento = moverPeçaEsq(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)                          
                 // fila.push(listaBaixo)
-                fila.push(listaBaixo.concat())
+                bool = fila.includes(listaBaixo)
+                if(!bool)
+                    fila.push(listaBaixo.concat())
                 //alert("2º elemento "+fila[i])
                 elemento = moverPeçaCima(elemento)
             }
             else if(elemento[1] == 0)
             {
-                listaDir = moverPeçaDir(elemento)            
-                fila.push(listaDir.concat())              
+                listaDir = moverPeçaDir(elemento)    
+                bool = fila.includes(listaDir)        
+                if(!bool)     
+                    fila.push(listaDir.concat())              
                 elemento = moverPeçaEsq(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
-                fila.push(listaBaixo.concat())
+                bool = fila.includes(listaBaixo)
+                if(!bool)
+                    fila.push(listaBaixo.concat())
                 elemento = moverPeçaCima(elemento)
-                listaEsq = moverPeçaEsq(elemento)            
-                fila.push(listaEsq.concat())           
+                listaEsq = moverPeçaEsq(elemento)   
+                bool = fila.includes(listaEsq) 
+                if(!bool)              
+                    fila.push(listaEsq.concat())           
                 elemento = moverPeçaDir(elemento)
             }
             else if(elemento[2] == 0)
             {
-                listaEsq = moverPeçaEsq(elemento)            
-                fila.push(listaEsq.concat())            
+                listaEsq = moverPeçaEsq(elemento)        
+                bool = fila.includes(listaEsq)    
+                if(!bool)      
+                    fila.push(listaEsq.concat())            
                 elemento = moverPeçaDir(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
-                fila.push(listaBaixo.concat())
+                bool = fila.includes(listaBaixo)
+                if(!bool)
+                    fila.push(listaBaixo.concat())
                 elemento = moverPeçaCima(elemento)
             }
             else if(elemento[3] == 0)
             {
-                listaDir = moverPeçaDir(elemento)            
-                fila.push(listaDir.concat())           
+                listaDir = moverPeçaDir(elemento)    
+                bool = fila.includes(listaDir)     
+                if(!bool)        
+                    fila.push(listaDir.concat())           
                 elemento = moverPeçaEsq(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
-                fila.push(listaBaixo.concat())
+                bool = fila.includes(listaBaixo)
+                if(!bool)
+                    fila.push(listaBaixo.concat())
                 elemento = moverPeçaCima(elemento)
                 listaCima = moverPeçaCima(elemento)
-                fila.push(listaCima.concat())
+                bool = fila.includes(listaCima)
+                if(!bool) 
+                    fila.push(listaCima.concat())
                 elemento = moverPeçaBaixo(elemento)
             }
             else if(elemento[4]==0)
             {
-                listaDir = moverPeçaDir(elemento)            
-                fila.push(listaDir.concat())              
+                listaDir = moverPeçaDir(elemento)    
+                bool = fila.includes(listaDir)       
+                if(!bool)      
+                    fila.push(listaDir.concat())              
                 elemento = moverPeçaEsq(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
-                fila.push(listaBaixo.concat())
+                bool = fila.includes(listaBaixo)
+                if(!bool)
+                    fila.push(listaBaixo.concat())
                 elemento = moverPeçaCima(elemento)
                 listaCima = moverPeçaCima(elemento)
-                fila.push(listaCima.concat())
+                bool = fila.includes(listaCima)
+                if(!bool) 
+                    fila.push(listaCima.concat())
                 elemento = moverPeçaBaixo(elemento)
-                listaEsq = moverPeçaEsq(elemento)            
-                fila.push(listaEsq.concat())             
+                listaEsq = moverPeçaEsq(elemento)
+                bool = fila.includes(listaEsq)
+                if(!bool)                  
+                     fila.push(listaEsq.concat())             
                 elemento = moverPeçaDir(elemento)
             }
             else if(elemento[5] == 0)
             {
                 listaCima = moverPeçaCima(elemento)
-                fila.push(listaCima.concat())
+                bool = fila.includes(listaCima)
+                if(!bool) 
+                    fila.push(listaCima.concat())
                 elemento = moverPeçaBaixo(elemento)
-                listaEsq = moverPeçaEsq(elemento)            
-                fila.push(listaEsq.concat())      
+                listaEsq = moverPeçaEsq(elemento) 
+                bool = fila.includes(listaEsq)
+                if(!bool)      
+                    fila.push(listaEsq.concat())      
                 elemento = moverPeçaDir(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
-                fila.push(listaBaixo.concat())
+                bool = fila.includes(listaBaixo)
+                if(!bool) 
+                    fila.push(listaBaixo.concat())
                 elemento = moverPeçaCima(elemento)
             }
+
             else if(elemento[6] == 0)
             {
                 listaCima = moverPeçaCima(elemento)
-                fila.push(listaCima.concat())
+                bool = fila.includes(listaCima)
+                if(!bool)      
+                    fila.push(listaCima.concat())
                 elemento = moverPeçaBaixo(elemento)
-                listaDir = moverPeçaDir(elemento)            
-                fila.push(listaDir.concat())                
+                listaDir = moverPeçaDir(elemento)     
+                bool = fila.includes(listaDir)       
+                if(bool)     
+                    fila.push(listaDir.concat())                
                 elemento = moverPeçaEsq(elemento)
             }
             else if(elemento[7]==0)
             {
                 listaCima = moverPeçaCima(elemento)
-                fila.push(listaCima.concat())
+                bool = fila.includes(listaCima)
+                if(!bool)                          
+                    fila.push(listaCima.concat())
                 elemento = moverPeçaBaixo(elemento)
-                listaDir = moverPeçaDir(elemento)            
-                fila.push(listaDir.concat())            
+                listaDir = moverPeçaDir(elemento)  
+                bool = fila.includes(listaDir)        
+                if(!bool)       
+                    fila.push(listaDir.concat())            
                 elemento = moverPeçaEsq(elemento)
-                listaEsq = moverPeçaEsq(elemento)            
-                fila.push(listaEsq.concat())           
+                listaEsq = moverPeçaEsq(elemento)     
+                bool = fila.includes(listaEsq)      
+                if(!bool)      
+                    fila.push(listaEsq.concat())           
                 elemento = moverPeçaDir(elemento)
 
             }
             else if(elemento[8]==0)
             {
-                listaEsq = moverPeçaEsq(elemento)            
-                fila.push(listaEsq.concat())            
+                listaEsq = moverPeçaEsq(elemento)     
+                bool = fila.includes(listaEsq)    
+                if(!bool)         
+                    fila.push(listaEsq.concat())            
                 elemento = moverPeçaDir(elemento)
                 listaCima = moverPeçaCima(elemento)
-                fila.push(listaCima.concat())
+                bool = fila.includes(listaCima)
+                if(!bool) 
+                    fila.push(listaCima.concat())
                 elemento = moverPeçaBaixo(elemento)
-            }
+            }}
         }
         
     }
