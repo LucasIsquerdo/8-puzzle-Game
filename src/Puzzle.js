@@ -20,6 +20,8 @@ function Puzzle()
         nodes: ""
 
     })
+
+
     const [stateFinal, setStatefinal] = useState({
         cell1: "?",
         cell2: "?",
@@ -41,8 +43,21 @@ function Puzzle()
         cell6: 6,
         cell7: 7,
         cell8: 8,
-        cell9: "",
+        cell9: 0,
     })
+
+    const [stateCorrect,setStateCorrect] = useState({
+        cell1: 1,
+        cell2: 2,
+        cell3: 3,
+        cell4: 4,
+        cell5: 5,
+        cell6: 6,
+        cell7: 7,
+        cell8: 8,
+        cell9: 0,
+    })
+
 
     const [stateEmbaralhado, setStateEmbaralhado] = useState({
         cell1: state.cell1,
@@ -53,7 +68,15 @@ function Puzzle()
         cell6: state.cell6,
         cell7: state.cell7,
         cell8: state.cell8,
-        cell9: "",
+        cell9: 0,
+    })
+
+    const[stateCaminho, setStateCaminho] = useState({
+        listas: [{
+            lista: [], 
+            nivel: 0
+        }]
+        
     })
 
     const resetar = () =>
@@ -67,19 +90,881 @@ function Puzzle()
             cell6: state.cell6,
             cell7: state.cell7,
             cell8: state.cell8,
-            cell9: "",
+            cell9: 0,
         })
         setStateResult(
             {
                 flag: false
             }
         )
+        setStatefinal({
+            cell1: "?",
+            cell2: "?",
+            cell3: "?",
+            cell4: "?",
+            cell5: "?",
+            cell6: "?",
+            cell7: "?",
+            cell8: "?",
+            cell9: "?",
+        })
     }
 
+    const verificaLista = (listaAtual) =>
+    {
+        var cont = 0
+        for(let i=0; i<listaAtual.length; i++)
+        {
+            if(listaAtual[i]!=listaFinal[i])
+                cont+=1
+        }
+        return cont
+    }
+    const moverPeçaCima = (list) =>
+    {
+        let i=0
+       
+            while(list[i]!=0)
+                i++
+            list[i] = list[i-3]
+            list[i-3] = 0
+
+        return list
+    }
+
+    const moverPeçaBaixo = (list) =>
+    {
+        let i=0
+      
+            while(list[i]!=0)
+                i++
+                list[i] = list[i+3]
+                list[i+3] = 0
 
 
+        return list
+
+    }
+
+    const moverPeçaEsq = (list) =>
+    {
+        let i=0
+       
+            while(list[i]!=0)
+                i++
+            list[i] = list[i-1]
+            list[i-1] = 0
+
+        return list
+
+    }
+
+    const moverPeçaDir = (list) =>
+    {
+        let i=0
+     
+            while(list[i]!=0)
+                i++
+            list[i] = list[i+1]
+            list[i+1] = 0
+
+        return list
+
+    }
+
+    var caminho = 0 //quantos caminhos percorreu para chegar ao final
+    var cont = 0 //quantas peças estão fora de ordem
+    var melhor = 9999 //guardar o menor caminho
+    var nivel = 0 // guardar o nivel que está
+
+    var visitados = []
+
+    const listaFinal = [1,2,3,4,5,6,7,8,0]
+    // const resolver = () =>
+    // {
+
+    //     var parada = false
+    //     var listaAtual = [
+    //         stateEmbaralhado.cell1,            
+    //         stateEmbaralhado.cell2,
+    //         stateEmbaralhado.cell3,
+    //         stateEmbaralhado.cell4,
+    //         stateEmbaralhado.cell5,
+    //         stateEmbaralhado.cell6,
+    //         stateEmbaralhado.cell7,
+    //         stateEmbaralhado.cell8,
+    //         stateEmbaralhado.cell9,
+    //     ]
+    //     var listaInalterada = listaAtual
+    //     var listaMenorCaminho = listaAtual    //guardar lista com melhor caminho
+    //     var visitados = [[]]
+    //     var i=0;
+    //     while(parada == false)
+    //     {
+    //         melhor = 999
+    //         cont = verificaLista(listaAtual)
+    //         alert(listaAtual)
+    //         alert("Visitados:\n"+visitados[0])
+    //         if(cont==0)
+    //         {
+    //             parada= true
+    //             setStatefinal({
+    //                 cell1:listaAtual[0],
+    //                 cell2:listaAtual[1],
+    //                 cell3:listaAtual[2],
+    //                 cell4:listaAtual[3],
+    //                 cell5:listaAtual[4],
+    //                 cell6:listaAtual[5],
+    //                 cell7:listaAtual[6],
+    //                 cell8:listaAtual[7],
+    //                 cell9:listaAtual[8],
+
+    //             })
+
+    //         }
+    //         else
+    //         {
+                
+    //             if(listaAtual[0] == 0)
+    //             {
+    //                 var aux = listaAtual[0] //aux recebe sempre o espaço vago
+    //                 listaAtual[0] = listaAtual[1]
+    //                 listaAtual[1] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool == false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[1] = listaAtual[0]
+    //                     listaAtual[0] = aux
+    //                     aux = listaAtual[0]   
+    //                     listaAtual[0] = listaAtual[3]
+    //                     listaAtual[3] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+    //                     // listaAtual[3] = listaAtual[0]
+    //                     // listaAtual[0] = aux
+                        
+                        
+    //                 }
+    //                 listaAtual = listaInalterada
+    //             }
+    //             else if(listaAtual[1] == 0)
+    //                 {
+    //                     var aux = listaAtual[1]
+    //                     listaAtual[1] = listaAtual[0]
+    //                     listaAtual[0] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)                        
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+    //                     if(cont>0)
+    //                     {
+    //                         listaAtual[0] = listaAtual[1]
+    //                         listaAtual[1] = aux
+    //                         aux = listaAtual[1]
+    //                         listaAtual[1] = listaAtual[2]
+    //                         listaAtual[2] = aux
+    //                         cont = 0
+    //                         cont = verificaLista(listaAtual)
+    //                         let bool = visitados.includes(listaAtual)                            
+    //                         if(cont <= melhor && bool == false)
+    //                         {
+    //                             melhor = cont
+    //                             listaMenorCaminho = listaAtual
+    //                           visitados.push(listaMenorCaminho)
+    //                         }
+    //                         if(cont>0)
+    //                         {
+    //                             listaAtual[2] = listaAtual[1]
+    //                             listaAtual[1] = aux
+    //                             aux = listaAtual[1]
+    //                             listaAtual[1] = listaAtual[4]
+    //                             listaAtual[4] = aux
+    //                             cont = 0
+    //                             cont = verificaLista(listaAtual)
+    //                             let bool = visitados.includes(listaAtual)
+    //                             if(cont <= melhor && bool == false)
+    //                             {
+    //                                 melhor = cont
+    //                                 listaMenorCaminho = listaAtual
+    //                               visitados.push(listaMenorCaminho)
+    //                             }
+    //                         }
+                            
+    //                     }
+    //                     listaAtual = listaInalterada
+    //             }
+                   
+    //             else if(listaAtual[2] == 0)
+    //             {
+    //                 var aux = listaAtual[2] //aux recebe sempre o espaço vago
+    //                 listaAtual[2] = listaAtual[1]
+    //                 listaAtual[1] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)
+                    
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool == false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[1] = listaAtual[2]
+    //                     listaAtual[2] = aux
+    //                     aux = listaAtual[2]   
+    //                     listaAtual[2] = listaAtual[5]
+    //                     listaAtual[5] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)                        
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+    //                 }
+    //                 listaAtual = listaInalterada
+    //             }
+    //             else if(listaAtual[3] == 0 )
+    //             {
+    //                 var aux = listaAtual[3]
+    //                 listaAtual[3] = listaAtual[0]
+    //                 listaAtual[0] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)                    
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool==false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[0] = listaAtual[3]
+    //                     listaAtual[3] = aux
+    //                     aux = listaAtual[3]
+    //                     listaAtual[3] = listaAtual[4]
+    //                     listaAtual[4] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual                            
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+                        
+    //                     if(cont>0)
+    //                     {
+    //                         listaAtual[4] = listaAtual[3]
+    //                         listaAtual[3] = aux
+    //                         aux = listaAtual[3]
+    //                         listaAtual[3] = listaAtual[6]
+    //                         listaAtual[6] = aux
+    //                         cont = 0
+    //                         cont = verificaLista(listaAtual)
+    //                         let bool = visitados.includes(listaAtual)                            
+    //                         if(cont <= melhor && bool==false)
+    //                         {
+    //                             melhor = cont
+    //                             listaMenorCaminho = listaAtual                             
+    //                           visitados.push(listaMenorCaminho)
+    //                         }
+
+    //                     }
+    //                 }
+    //                 listaAtual = listaInalterada
+    //             }
+                
+    //             else if(listaAtual[5] == 0 )
+    //             {
+    //                 var aux = listaAtual[5]
+    //                 listaAtual[5] = listaAtual[2]
+    //                 listaAtual[2] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool == false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[2] = listaAtual[5]
+    //                     listaAtual[5] = aux
+    //                     aux = listaAtual[5]
+    //                     listaAtual[5] = listaAtual[4]
+    //                     listaAtual[4] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool==false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+    //                     if(cont>0)
+    //                     {
+    //                         listaAtual[4] = listaAtual[5]
+    //                         listaAtual[5] = aux
+    //                         aux = listaAtual[5]
+    //                         listaAtual[5] = listaAtual[8]
+    //                         listaAtual[8] = aux
+    //                         cont = 0
+    //                         cont = verificaLista(listaAtual)
+    //                         let bool = visitados.includes(listaAtual)
+    //                         if(cont <= melhor && bool==false)
+    //                         {
+    //                             melhor = cont
+    //                             listaMenorCaminho = listaAtual
+    //                           visitados.push(listaMenorCaminho)
+    //                         }
+    //                     }
+    //                 }
+    //                 listaAtual = listaInalterada
+    //             }
+                               
+    //             else if(listaAtual[6] == 0 )
+    //             {
+    //                 var aux = listaAtual[6] //aux recebe sempre o espaço vago
+    //                 listaAtual[6] = listaAtual[7]
+    //                 listaAtual[7] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)                    
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool == false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[7] = listaAtual[6]
+    //                     listaAtual[6] = aux
+    //                     aux = listaAtual[6]   
+    //                     listaAtual[6] = listaAtual[3]
+    //                     listaAtual[3] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)                        
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+                        
+    //                 }
+    //                 listaAtual = listaInalterada
+                    
+                    
+    //             }
+                                   
+    //             else if(listaAtual[7] == 0)
+    //             {
+    //                 var aux = listaAtual[7]
+    //                 listaAtual[7] = listaAtual[8]
+    //                 listaAtual[8] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool==false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[8] = listaAtual[7]
+    //                     listaAtual[7] = aux
+    //                     aux = listaAtual[7]
+    //                     listaAtual[7] = listaAtual[6]
+    //                     listaAtual[6] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)
+                        
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+    //                     if(cont>0)
+    //                     {
+    //                         listaAtual[6] = listaAtual[7]
+    //                         listaAtual[7] = aux
+    //                         aux = listaAtual[7]
+    //                         listaAtual[7] = listaAtual[4]
+    //                         listaAtual[4] = aux
+    //                         cont = 0
+    //                         cont = verificaLista(listaAtual)
+    //                         let bool = visitados.includes(listaAtual)
+    //                         if(cont <= melhor && bool==false)
+    //                         {
+    //                             melhor = cont
+    //                             listaMenorCaminho = listaAtual
+    //                           visitados.push(listaMenorCaminho)
+    //                         }
+    //                     }
+                        
+    //                 }
+    //                 listaAtual = listaInalterada
+
+    //             }
+                                        
+    //             else if(listaAtual[8] == 0)
+    //             {
+    //                 var aux = listaAtual[8] //aux recebe sempre o espaço vago
+    //                 listaAtual[8] = listaAtual[7]
+    //                 listaAtual[7] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)
+                    
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool == false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[7] = listaAtual[8]
+    //                     listaAtual[8] = aux
+    //                     aux = listaAtual[8]   
+    //                     listaAtual[8] = listaAtual[5]
+    //                     listaAtual[5] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)
+                        
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+    //                 }
+    //                 listaAtual = listaInalterada
+    //             }
+                                            
+    //             else if(listaAtual[4] == 0)
+    //             {
+    //                 var aux = listaAtual[4]
+    //                 listaAtual[4] = listaAtual[1]
+    //                 listaAtual[1] = aux
+    //                 cont = 0
+    //                 cont = verificaLista(listaAtual)
+                    
+    //                 let bool = visitados.includes(listaAtual)
+    //                 if(cont <= melhor && bool == false)
+    //                 {
+    //                     melhor = cont
+    //                     listaMenorCaminho = listaAtual
+    //                   visitados.push(listaMenorCaminho)
+    //                 }
+    //                 if(cont>0)
+    //                 {
+    //                     listaAtual[1] = listaAtual[4]
+    //                     listaAtual[4] = aux
+    //                     aux = listaAtual[4]
+    //                     listaAtual[4] = listaAtual[3]
+    //                     listaAtual[3] = aux
+    //                     cont = 0
+    //                     cont = verificaLista(listaAtual)
+    //                     let bool = visitados.includes(listaAtual)
+    //                     if(cont <= melhor && bool == false)
+    //                     {
+    //                         melhor = cont
+    //                         listaMenorCaminho = listaAtual
+    //                       visitados.push(listaMenorCaminho)
+    //                     }
+    //                     if(cont>0)
+    //                     {
+    //                         listaAtual[3] = listaAtual[4]
+    //                         listaAtual[4] = aux
+    //                         aux = listaAtual[4]
+    //                         listaAtual[4] = listaAtual[5]
+    //                         listaAtual[5] = aux
+    //                         cont = 0
+    //                         cont = verificaLista(listaAtual)
+    //                         let bool = visitados.includes(listaAtual)
+    //                         if(cont <= melhor && bool == false)
+    //                         {
+    //                             melhor = cont
+    //                             listaMenorCaminho = listaAtual
+    //                           visitados.push(listaMenorCaminho)
+    //                         }
+    //                         if(cont>0)
+    //                         {
+    //                             listaAtual[5] = listaAtual[4]
+    //                             listaAtual[4] = aux
+    //                             aux = listaAtual[4]
+    //                             listaAtual[4] = listaAtual[7]
+    //                             listaAtual[7] = aux
+    //                             cont = 0
+    //                             cont = verificaLista(listaAtual)
+    //                             let bool = visitados.includes(listaAtual)                                                                
+    //                             if(cont <= melhor && bool == false)
+    //                             {
+    //                                 melhor = cont
+    //                                 listaMenorCaminho = listaAtual
+    //                               visitados.push(listaMenorCaminho)
+    //                             }
+    //                         }
+
+    //                     }
+    //                 }
+    //                 listaAtual = listaInalterada
+    //             }
+                                                
+                                           
+                
+                    
+    //         }
+    //         listaAtual = listaMenorCaminho  
+    //         cont = 0
+    //         cont = verificaLista(listaAtual)
+                      
+    //     }
+    //     setStateResult(
+    //         {
+    //             flag: true,
+    //             execucao: performance.now().toFixed(4)
+    //         }
+    //     )
+    // }
+    
+
+    // const buscaProfundidade = () =>
+    // {
+    //     var flag = false
+    //     var listaAtual = [
+    //         stateEmbaralhado.cell1,
+    //         stateEmbaralhado.cell2,
+    //         stateEmbaralhado.cell3,
+    //         stateEmbaralhado.cell4,
+    //         stateEmbaralhado.cell5,
+    //         stateEmbaralhado.cell6,
+    //         stateEmbaralhado.cell7,
+    //         stateEmbaralhado.cell8,
+    //         stateEmbaralhado.cell9,
+    //     ]
+    //     while(!flag)
+    //     {
+    //         if(listaAtual===listaFinal)
+    //         {
+    //             flag= true
+    //             setStatefinal({
+    //                 cell1:listaAtual[0],
+    //                 cell2:listaAtual[1],
+    //                 cell3:listaAtual[2],
+    //                 cell4:listaAtual[3],
+    //                 cell5:listaAtual[4],
+    //                 cell6:listaAtual[5],
+    //                 cell7:listaAtual[6],
+    //                 cell8:listaAtual[7],
+    //                 cell9:listaAtual[8],
+
+    //             })
+
+    //         }
+                
+    //     }
+    // }
     const resolver = () =>
     {
+        const listaAtual = [
+            stateEmbaralhado.cell1,
+            stateEmbaralhado.cell2,
+            stateEmbaralhado.cell3,
+            stateEmbaralhado.cell4,
+            stateEmbaralhado.cell5,
+            stateEmbaralhado.cell6,
+            stateEmbaralhado.cell7,
+            stateEmbaralhado.cell8,
+            stateEmbaralhado.cell9,
+    
+        ]
+        alert(listaAtual)
+        const list = []
+        
+        var parada = false
+        var i=0;
+        melhor = 999
+        var listaAlterada = []
+        var x = 0
+        while(parada == false)
+        {
+            
+           
+            cont = verificaLista(listaAtual)
+            if(cont==0)
+            {
+                parada= true
+                setStatefinal({
+                    cell1:listaAtual[0],
+                    cell2:listaAtual[1],
+                    cell3:listaAtual[2],
+                    cell4:listaAtual[3],
+                    cell5:listaAtual[4],
+                    cell6:listaAtual[5],
+                    cell7:listaAtual[6],
+                    cell8:listaAtual[7],
+                    cell9:listaAtual[8],
+
+                })
+
+            }
+            else
+            {
+                
+                if(listaAtual[0] == 0)
+                {
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                         
+                        listas:
+                        {
+                            lista: lista,
+                            nivel : x
+                        }
+
+                    })
+                    listaAlterada = moverPeçaEsq(listaAtual)
+
+                }
+                else if(listaAtual[1] == 0)
+                {
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                         
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                         
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaDir(listaAtual)
+
+                        
+                }
+                   
+                else if(listaAtual[2] == 0)
+                {
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaDir(listaAtual)
+                }
+                else if(listaAtual[3] == 0 )
+                {
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                }
+                
+                else if(listaAtual[5] == 0 )
+                {
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaDir(listaAtual)
+                }
+                               
+                else if(listaAtual[6] == 0 )
+                {
+                   
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    
+                }
+                                   
+                else if(listaAtual[7] == 0)
+                {
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaEsq(listaAtual)
+
+                }
+                                        
+                else if(listaAtual[8] == 0)
+                {
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+                    })
+                    listaAlterada = moverPeçaDir(listaAtual)
+                }
+                                            
+                else if(listaAtual[4] == 0)
+                {
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    listaAlterada = moverPeçaBaixo(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    listaAlterada = moverPeçaEsq(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaDir(listaAtual)
+                    listaAlterada = moverPeçaCima(listaAtual)
+                    var lista = stateCaminho.listas.concat(listaAlterada)
+                    setStateCaminho({
+                        listas: lista
+
+                    })
+                    listaAlterada = moverPeçaBaixo(listaAtual)                    
+                    
+
+                }
+                                                
+                                           
+                
+                    
+            }
+            cont = verificaLista(listaAtual)
+                      
+        }
         setStateResult(
             {
                 flag: true,
@@ -87,12 +972,11 @@ function Puzzle()
             }
         )
     }
-    
+
     const embaralhar = () =>
     {
-        var lista = [1,2,3,4,5,6,7,8,""]
+        var lista = [1,2,3,4,5,6,7,8,0]
         var aux
-        var inicio = performance.now()
         //método Fisher-Yates
         for(let i = lista.length-1;i>0;i--)
         {   
@@ -115,8 +999,6 @@ function Puzzle()
             cell8: lista[7],
             cell9: lista[8],
         })
-        //contar milisegundos
-        var fim = performance.now()
         setStateResult(
             {
                 flag: false
