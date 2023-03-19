@@ -1,11 +1,10 @@
 import './App.css'
 import React, {useState} from "react";
 
-
 function Puzzle()
+
 {
     const[selectState, setStateSelect] = useState(1)
-    
     const values = [
            
            { id:1, nome: "Busca Cega (Largura)"},
@@ -69,14 +68,6 @@ function Puzzle()
         cell7: state.cell7,
         cell8: state.cell8,
         cell9: 0,
-    })
-
-    const[stateCaminho, setStateCaminho] = useState({
-        listas: [{
-            lista: [], 
-            nivel: 0
-        }]
-        
     })
 
     const resetar = () =>
@@ -171,14 +162,138 @@ function Puzzle()
         return list
 
     }
+    
+    const [stateCaminho, setStateCaminho] = useState([])
+    const [statePilha, setStatePilha] = useState([[]])
 
-    var caminho = 0 //quantos caminhos percorreu para chegar ao final
-    var cont = 0 //quantas peças estão fora de ordem
-    var melhor = 9999 //guardar o menor caminho
-    var nivel = 0 // guardar o nivel que está
 
-    var visitados = []
+    function pushPilha(lista){
+        setStatePilha([...statePilha, lista])
+    }
 
+    function isEmpty()
+    {
+        return statePilha.length == 0
+
+    }
+    function possibilidades()
+    {
+        var listaDir = []
+        var listaEsq = []
+        var listaCima = []
+        var listaBaixo = []
+        while(!isEmpty())
+        {
+            var elemento = statePilha.pop()
+            alert(elemento)
+            var cont = verificaLista(elemento)
+            if(cont == 0)
+                setStateCaminho([...setStateCaminho, elemento])
+            else
+            {
+                if(elemento[0] == 0)
+                {
+                    listaDir = moverPeçaDir(elemento)            
+                    setStatePilha([...statePilha, listaDir])                    
+                    elemento = moverPeçaEsq(elemento)
+                    listaBaixo = moverPeçaBaixo(elemento)
+                    setStatePilha([...statePilha, listaBaixo])
+                    elemento = moverPeçaCima(elemento)
+                }
+                else if(elemento[1] == 0)
+                {
+                    listaDir = moverPeçaDir(elemento)            
+                    setStatePilha([...statePilha, listaDir])                    
+                    elemento = moverPeçaEsq(elemento)
+                    listaBaixo = moverPeçaBaixo(elemento)
+                    setStatePilha([...statePilha, listaBaixo])
+                    elemento = moverPeçaCima(elemento)
+                    listaEsq = moverPeçaEsq(elemento)            
+                    setStatePilha([...statePilha, listaEsq])                    
+                    elemento = moverPeçaDir(elemento)
+                }
+                else if(elemento[2] == 0)
+                {
+                    listaEsq = moverPeçaEsq(elemento)            
+                    setStatePilha([...statePilha, listaEsq])                    
+                    elemento = moverPeçaDir(elemento)
+                    listaBaixo = moverPeçaBaixo(elemento)
+                    setStatePilha([...statePilha, listaBaixo])
+                    elemento = moverPeçaCima(elemento)
+                }
+                else if(elemento[3] == 0)
+                {
+                    listaDir = moverPeçaDir(elemento)            
+                    setStatePilha([...statePilha, listaDir])                    
+                    elemento = moverPeçaEsq(elemento)
+                    listaBaixo = moverPeçaBaixo(elemento)
+                    setStatePilha([...statePilha, listaBaixo])
+                    elemento = moverPeçaCima(elemento)
+                    listaCima = moverPeçaCima(elemento)
+                    setStatePilha([...statePilha, listaCima])
+                    elemento = moverPeçaBaixo(elemento)
+                }
+                else if(elemento[4]==0)
+                {
+                    listaDir = moverPeçaDir(elemento)            
+                    setStatePilha([...statePilha, listaDir])                    
+                    elemento = moverPeçaEsq(elemento)
+                    listaBaixo = moverPeçaBaixo(elemento)
+                    setStatePilha([...statePilha, listaBaixo])
+                    elemento = moverPeçaCima(elemento)
+                    listaCima = moverPeçaCima(elemento)
+                    setStatePilha([...statePilha, listaCima])
+                    elemento = moverPeçaBaixo(elemento)
+                    listaEsq = moverPeçaEsq(elemento)            
+                    setStatePilha([...statePilha, listaEsq])                    
+                    elemento = moverPeçaDir(elemento)
+                }
+                else if(elemento[5] == 0)
+                {
+                    listaCima = moverPeçaCima(elemento)
+                    setStatePilha([...statePilha, listaCima])
+                    elemento = moverPeçaBaixo(elemento)
+                    listaEsq = moverPeçaEsq(elemento)            
+                    setStatePilha([...statePilha, listaEsq])                    
+                    elemento = moverPeçaDir(elemento)
+                    listaBaixo = moverPeçaBaixo(elemento)
+                    setStatePilha([...statePilha, listaBaixo])
+                    elemento = moverPeçaCima(elemento)
+                }
+                else if(elemento[6] == 0)
+                {
+                    listaCima = moverPeçaCima(elemento)
+                    setStatePilha([...statePilha, listaCima])
+                    elemento = moverPeçaBaixo(elemento)
+                    listaDir = moverPeçaDir(elemento)            
+                    setStatePilha([...statePilha, listaDir])                    
+                    elemento = moverPeçaEsq(elemento)
+                }
+                else if(elemento[7]==0)
+                {
+                    listaCima = moverPeçaCima(elemento)
+                    setStatePilha([...statePilha, listaCima])
+                    elemento = moverPeçaBaixo(elemento)
+                    listaDir = moverPeçaDir(elemento)            
+                    setStatePilha([...statePilha, listaDir])                    
+                    elemento = moverPeçaEsq(elemento)
+                    listaEsq = moverPeçaEsq(elemento)            
+                    setStatePilha([...statePilha, listaEsq])                    
+                    elemento = moverPeçaDir(elemento)
+
+                }
+                else if(elemento[8]==0)
+                {
+                    listaEsq = moverPeçaEsq(elemento)            
+                    setStatePilha([...statePilha, listaEsq])                    
+                    elemento = moverPeçaDir(elemento)
+                    listaCima = moverPeçaCima(elemento)
+                    setStatePilha([...statePilha, listaCima])
+                    elemento = moverPeçaBaixo(elemento)
+                }
+           }
+        }
+    }
     const listaFinal = [1,2,3,4,5,6,7,8,0]
     // const resolver = () =>
     // {
@@ -705,7 +820,7 @@ function Puzzle()
     // }
     const resolver = () =>
     {
-        const listaAtual = [
+        const estadoInicial = [
             stateEmbaralhado.cell1,
             stateEmbaralhado.cell2,
             stateEmbaralhado.cell3,
@@ -717,260 +832,255 @@ function Puzzle()
             stateEmbaralhado.cell9,
     
         ]
-        alert(listaAtual)
-        const list = []
-        
-        var parada = false
-        var i=0;
-        melhor = 999
-        var listaAlterada = []
-        var x = 0
-        while(parada == false)
-        {
+        pushPilha(estadoInicial)
+        possibilidades()
+        // alert(`Conteúdo da pilha: ${statePilha.join(", ")}`);
+        // while(parada == false)
+        // {
             
            
-            cont = verificaLista(listaAtual)
-            if(cont==0)
-            {
-                parada= true
-                setStatefinal({
-                    cell1:listaAtual[0],
-                    cell2:listaAtual[1],
-                    cell3:listaAtual[2],
-                    cell4:listaAtual[3],
-                    cell5:listaAtual[4],
-                    cell6:listaAtual[5],
-                    cell7:listaAtual[6],
-                    cell8:listaAtual[7],
-                    cell9:listaAtual[8],
+        //     cont = verificaLista(listaAtual)
+        //     if(cont==0)
+        //     {
+        //         parada= true
+        //         setStatefinal({
+        //             cell1:listaAtual[0],
+        //             cell2:listaAtual[1],
+        //             cell3:listaAtual[2],
+        //             cell4:listaAtual[3],
+        //             cell5:listaAtual[4],
+        //             cell6:listaAtual[5],
+        //             cell7:listaAtual[6],
+        //             cell8:listaAtual[7],
+        //             cell9:listaAtual[8],
 
-                })
+        //         })
 
-            }
-            else
-            {
+        //     }
+        //     else
+        //     {
                 
-                if(listaAtual[0] == 0)
-                {
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
+        //         if(listaAtual[0] == 0)
+        //         {
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
                          
-                        listas:
-                        {
-                            lista: lista,
-                            nivel : x
-                        }
+        //                 listas:
+        //                 {
+        //                     lista: lista,
+        //                     nivel : x
+        //                 }
 
-                    })
-                    listaAlterada = moverPeçaEsq(listaAtual)
+        //             })
+        //             listaAlterada = moverPeçaEsq(listaAtual)
 
-                }
-                else if(listaAtual[1] == 0)
-                {
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
+        //         }
+        //         else if(listaAtual[1] == 0)
+        //         {
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
                          
-                        listas: lista
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
+        //             })
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
                          
-                        listas: lista
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaDir(listaAtual)
+        //             })
+        //             listaAlterada = moverPeçaDir(listaAtual)
 
                         
-                }
+        //         }
                    
-                else if(listaAtual[2] == 0)
-                {
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaDir(listaAtual)
-                }
-                else if(listaAtual[3] == 0 )
-                {
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                }
+        //         else if(listaAtual[2] == 0)
+        //         {
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //         }
+        //         else if(listaAtual[3] == 0 )
+        //         {
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //         }
                 
-                else if(listaAtual[5] == 0 )
-                {
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaDir(listaAtual)
-                }
+        //         else if(listaAtual[5] == 0 )
+        //         {
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //         }
                                
-                else if(listaAtual[6] == 0 )
-                {
+        //         else if(listaAtual[6] == 0 )
+        //         {
                    
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaBaixo(listaAtual)
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
                     
-                }
+        //         }
                                    
-                else if(listaAtual[7] == 0)
-                {
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaEsq(listaAtual)
+        //         else if(listaAtual[7] == 0)
+        //         {
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaEsq(listaAtual)
 
-                }
+        //         }
                                         
-                else if(listaAtual[8] == 0)
-                {
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
+        //         else if(listaAtual[8] == 0)
+        //         {
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
-                    })
-                    listaAlterada = moverPeçaDir(listaAtual)
-                }
+        //             })
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
+        //             })
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //         }
                                             
-                else if(listaAtual[4] == 0)
-                {
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
+        //         else if(listaAtual[4] == 0)
+        //         {
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
+        //             })
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    listaAlterada = moverPeçaBaixo(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
+        //             })
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             listaAlterada = moverPeçaBaixo(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    listaAlterada = moverPeçaEsq(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
+        //             })
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             listaAlterada = moverPeçaEsq(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaDir(listaAtual)
-                    listaAlterada = moverPeçaCima(listaAtual)
-                    var lista = stateCaminho.listas.concat(listaAlterada)
-                    setStateCaminho({
-                        listas: lista
+        //             })
+        //             listaAlterada = moverPeçaDir(listaAtual)
+        //             listaAlterada = moverPeçaCima(listaAtual)
+        //             var lista = stateCaminho.listas.concat(listaAlterada)
+        //             setStateCaminho({
+        //                 listas: lista
 
-                    })
-                    listaAlterada = moverPeçaBaixo(listaAtual)                    
+        //             })
+        //             listaAlterada = moverPeçaBaixo(listaAtual)                    
                     
 
-                }
+        //         }
                                                 
                                            
                 
                     
-            }
-            cont = verificaLista(listaAtual)
+        //     }
+        //     cont = verificaLista(listaAtual)
                       
-        }
-        setStateResult(
-            {
-                flag: true,
-                execucao: performance.now().toFixed(4)
-            }
-        )
+        // }
+        // setStateResult(
+        //     {
+        //         flag: true,
+        //         execucao: performance.now().toFixed(4)
+        //     }
+        // )
     }
 
     const embaralhar = () =>
