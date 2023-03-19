@@ -172,7 +172,7 @@ function Puzzle()
     // }
 
     
-    const listaFinal = [6,4,1,8,2,3,0,7,5]
+    const listaFinal = [1,2,3,4,5,6,7,0,8]
 
 
 
@@ -893,8 +893,8 @@ function Puzzle()
             elemento = fila.shift()
             var cont = verificaLista(elemento)
             if(cont == 0)
-             {    
-                     
+            {    
+                fila.push(elemento.concat())
                 console.log(fila.join("\n"))
                 break
             }
