@@ -151,9 +151,7 @@ function Puzzle()
 
     }
     
-    const listaFinal = [1,2,3,4,5,6,7,0,8]
-
-
+    const listaFinal = [1,2,3,4,5,6,7,8,0]
 
     // const resolver = () =>
     // {
@@ -715,7 +713,6 @@ function Puzzle()
         var listaCima = new Array()
         var listaDir = new Array()
         var listaEsq = new Array()
-        let i = 0
         var bool = false
         var parada = false
         var elemento = estadoInicial
