@@ -14,7 +14,7 @@ function Puzzle()
     
     const [stateResult,setStateResult] = useState({
         flag: false,
-        execucao: performance.now(),
+        execucao:0,
         caminho: "",
         nodes: ""
 
@@ -110,7 +110,6 @@ function Puzzle()
 
         return list
     }
-
     const moverPeçaBaixo = (list) =>
     {
         let i=0
@@ -124,7 +123,6 @@ function Puzzle()
         return list
 
     }
-
     const moverPeçaEsq = (list) =>
     {
         let i=0
@@ -137,7 +135,6 @@ function Puzzle()
         return list
 
     }
-
     const moverPeçaDir = (list) =>
     {
         let i=0
@@ -150,8 +147,8 @@ function Puzzle()
         return list
 
     }
-    
     const listaFinal = [1,2,3,4,5,6,7,8,0]
+
 
     // const resolver = () =>
     // {
@@ -704,259 +701,253 @@ function Puzzle()
     
    
     // }    
-    var fila = new Array()
-    var visitados = new Array()
-    function resolucao () 
+    var fila = new Array()//criando uma fila vazia
+    var visitados = new Set([])//criando um conjunto de nós já visitados
+    function resolucaoLargura () 
     {
-       
         var listaBaixo = new Array()
+        var cont = 0
+        var flag = false
         var listaCima = new Array()
         var listaDir = new Array()
         var listaEsq = new Array()
-        var bool = false
-        var parada = false
         var elemento = estadoInicial
-        fila.push(elemento.concat())
-        while(fila.length>0 && parada == false)
+        fila.push(elemento.concat())//adicionando nó inicial
+        while(fila.length>0 && flag == false)
         {           
+            cont = verificaLista(elemento)
+            if(cont==0)
+                flag = true
             elemento = fila.shift()
-            var cont = verificaLista(elemento)
-            if(cont == 0)
-            {    
-                fila.push(elemento.concat())
-                console.log(fila.join("\n"))
-                parada = true
-            }
-            else
+            if(!visitados.has([elemento]))
+                visitados.add(elemento)
+            if(elemento[0] == 0)
             {
+                listaDir = moverPeçaDir(elemento)
+                if(!visitados.has([listaDir]))
+                {          
+                    fila.push(listaDir.concat()) 
+                    visitados.add(listaDir)                  
+                }
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)    
+                if(!visitados.has([listaBaixo]))
+                {          
+                    fila.push(listaBaixo.concat()) 
+                    visitados.add(listaBaixo)                  
+                }          
+                elemento = moverPeçaCima(elemento)
                 
-                if(elemento[0] == 0)
-                {
-                    listaDir = moverPeçaDir(elemento)
-                    var contador = verificaLista(listaDir)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaDir)
-                    if(!bool)          
-                        fila.push(listaDir.concat())
-                    //alert("1º elemento "+fila[i])
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)    
-                    var contador = verificaLista(listaBaixo)
-                    if(contador == 0)
-                        parada = true                      
-                    // fila.push(listaBaixo)
-                    bool = fila.includes(listaBaixo)
-                    if(!bool)
-                        fila.push(listaBaixo.concat())
-                    //alert("2º elemento "+fila[i])
-                    elemento = moverPeçaCima(elemento)
+            }
+            else if(elemento[1] == 0)
+            {
+                listaDir = moverPeçaDir(elemento)   
+                if(!visitados.has([listaDir]))
+                {          
+                    fila.push(listaDir.concat()) 
+                    visitados.add(listaDir)                  
+                }        
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                if(!visitados.has([listaBaixo]))
+                {          
+                    fila.push(listaBaixo.concat()) 
+                    visitados.add(listaBaixo)                  
+                }  
+                elemento = moverPeçaCima(elemento)
+                listaEsq = moverPeçaEsq(elemento)   
+                if(!visitados.has([listaEsq]))
+                {          
+                    fila.push(listaEsq.concat()) 
+                    visitados.add(listaEsq)                  
+                }     
+                elemento = moverPeçaDir(elemento)
+            }
+            else if(elemento[2] == 0)
+            {
+                listaEsq = moverPeçaEsq(elemento)  
+                if(!visitados.has([listaEsq]))
+                {          
+                    fila.push(listaEsq.concat()) 
+                    visitados.add(listaEsq)                  
+                }       
+                elemento = moverPeçaDir(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                if(!visitados.has([listaBaixo]))
+                {          
+                    fila.push(listaBaixo.concat()) 
+                    visitados.add(listaBaixo)                  
+                }  
+                elemento = moverPeçaCima(elemento)
+            }
+            else if(elemento[3] == 0)
+            {
+                listaDir = moverPeçaDir(elemento)   
+                if(!visitados.has([listaDir]))
+                {          
+                    fila.push(listaDir.concat()) 
+                    visitados.add(listaDir)                  
+                }
+                     
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                if(!visitados.has([listaBaixo]))
+                {          
+                    fila.push(listaBaixo.concat()) 
+                    visitados.add(listaBaixo)                  
+                }  
+              
+                elemento = moverPeçaCima(elemento)
+                listaCima = moverPeçaCima(elemento)
+                if(!visitados.has([listaCima]))
+                {          
+                    fila.push(listaCima.concat()) 
+                    visitados.add(listaCima)                  
+                }  
+              
+                elemento = moverPeçaBaixo(elemento)
+            }
+            else if(elemento[4]==0)
+            {
+                listaDir = moverPeçaDir(elemento)   
+                if(!visitados.has([listaDir]))
+                {          
+                    fila.push(listaDir.concat()) 
+                    visitados.add(listaDir)                  
+                }
+                         
+                elemento = moverPeçaEsq(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                if(!visitados.has([listaBaixo]))
+                {          
+                    fila.push(listaBaixo.concat()) 
+                    visitados.add(listaBaixo)                  
+                }  
+              
+                elemento = moverPeçaCima(elemento)
+                listaCima = moverPeçaCima(elemento)
+                if(!visitados.has([listaCima]))
+                {          
+                    fila.push(listaCima.concat()) 
+                    visitados.add(listaCima)                  
+                }  
+              
+                elemento = moverPeçaBaixo(elemento)
+                listaEsq = moverPeçaEsq(elemento)
+                if(!visitados.has([listaEsq]))
+                {          
+                    fila.push(listaEsq.concat()) 
+                    visitados.add(listaEsq)                  
+                }                    
+               
+                elemento = moverPeçaDir(elemento)
+            }
+            else if(elemento[5] == 0)
+            {
+                listaCima = moverPeçaCima(elemento)
+                if(!visitados.has([listaCima]))
+                {          
+                    fila.push(listaCima.concat()) 
+                    visitados.add(listaCima)                  
+                }  
+                elemento = moverPeçaBaixo(elemento)
+                listaEsq = moverPeçaEsq(elemento) 
+                if(!visitados.has([listaEsq]))
+                {          
+                    fila.push(listaEsq.concat()) 
+                    visitados.add(listaEsq)                  
+                }    
+                elemento = moverPeçaDir(elemento)
+                listaBaixo = moverPeçaBaixo(elemento)
+                if(!visitados.has([listaBaixo]))
+                {          
+                    fila.push(listaBaixo.concat()) 
+                    visitados.add(listaBaixo)                  
+                }  
+                   
+                elemento = moverPeçaCima(elemento)
+            }
+
+            else if(elemento[6] == 0)
+            {
+                listaCima = moverPeçaCima(elemento)
+                if(!visitados.has([listaCima]))
+                {          
+                    fila.push(listaCima.concat()) 
+                    visitados.add(listaCima)                  
+                }  
+                
+                elemento = moverPeçaBaixo(elemento)
+                listaDir = moverPeçaDir(elemento) 
+                if(!visitados.has([listaDir]))
+                {          
+                    fila.push(listaDir.concat()) 
+                    visitados.add(listaDir)                  
+                }
+                               
+                elemento = moverPeçaEsq(elemento)
+            }
+            else if(elemento[7]==0)
+            {
+                listaCima = moverPeçaCima(elemento)
+                if(!visitados.has([listaCima]))
+                {          
+                    fila.push(listaCima.concat()) 
+                    visitados.add(listaCima)                  
+                }                           
+               
+                elemento = moverPeçaBaixo(elemento)
+                listaDir = moverPeçaDir(elemento) 
+                if(!visitados.has([listaDir]))
+                {          
+                    fila.push(listaDir.concat()) 
+                    visitados.add(listaDir)                  
+                }        
                     
+                elemento = moverPeçaEsq(elemento)
+                listaEsq = moverPeçaEsq(elemento)  
+                if(!visitados.has([listaEsq]))
+                {          
+                    fila.push(listaEsq.concat()) 
+                    visitados.add(listaEsq)                  
                 }
-                else if(elemento[1] == 0)
-                {
-                    listaDir = moverPeçaDir(elemento)   
-                    var contador = verificaLista(listaDir)
-                    if(contador == 0)
-                        parada = true 
-                    bool = fila.includes(listaDir)        
-                    if(!bool)     
-                        fila.push(listaDir.concat())              
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    var contador = verificaLista(listaBaixo)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaBaixo)
-                    if(!bool)
-                        fila.push(listaBaixo.concat())
-                    elemento = moverPeçaCima(elemento)
-                    listaEsq = moverPeçaEsq(elemento)   
-                    var contador = verificaLista(listaEsq)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaEsq) 
-                    if(!bool)              
-                        fila.push(listaEsq.concat())           
-                    elemento = moverPeçaDir(elemento)
-                }
-                else if(elemento[2] == 0)
-                {
-                    listaEsq = moverPeçaEsq(elemento)  
-                    var contador = verificaLista(listaEsq)
-                    if(contador == 0)
-                        parada = true      
-                    bool = fila.includes(listaEsq)    
-                    if(!bool)      
-                        fila.push(listaEsq.concat())            
-                    elemento = moverPeçaDir(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    var contador = verificaLista(listaBaixo)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaBaixo)
-                    if(!bool)
-                        fila.push(listaBaixo.concat())
-                    elemento = moverPeçaCima(elemento)
-                }
-                else if(elemento[3] == 0)
-                {
-                    listaDir = moverPeçaDir(elemento)   
-                    var contador = verificaLista(listaDir)
-                    if(contador == 0)
-                        parada = true 
-                    bool = fila.includes(listaDir)     
-                    if(!bool)        
-                        fila.push(listaDir.concat())           
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    var contador = verificaLista(listaBaixo)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaBaixo)
-                    if(!bool)
-                        fila.push(listaBaixo.concat())
-                    elemento = moverPeçaCima(elemento)
-                    listaCima = moverPeçaCima(elemento)
-                    var contador = verificaLista(listaCima)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaCima)
-                    if(!bool) 
-                        fila.push(listaCima.concat())
-                    elemento = moverPeçaBaixo(elemento)
-                }
-                else if(elemento[4]==0)
-                {
-                    listaDir = moverPeçaDir(elemento)   
-                    var contador = verificaLista(listaDir)
-                    if(contador == 0)
-                        parada = true 
-                    bool = fila.includes(listaDir)       
-                    if(!bool)      
-                        fila.push(listaDir.concat())              
-                    elemento = moverPeçaEsq(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    var contador = verificaLista(listaBaixo)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaBaixo)
-                    if(!bool)
-                        fila.push(listaBaixo.concat())
-                    elemento = moverPeçaCima(elemento)
-                    listaCima = moverPeçaCima(elemento)
-                    var contador = verificaLista(listaCima)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaCima)
-                    if(!bool) 
-                        fila.push(listaCima.concat())
-                    elemento = moverPeçaBaixo(elemento)
-                    listaEsq = moverPeçaEsq(elemento)
-                    var contador = verificaLista(listaEsq)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaEsq)
-                    if(!bool)                  
-                        fila.push(listaEsq.concat())             
-                    elemento = moverPeçaDir(elemento)
-                }
-                else if(elemento[5] == 0)
-                {
-                    listaCima = moverPeçaCima(elemento)
-                    var contador = verificaLista(listaCima)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaCima)
-                    if(!bool) 
-                        fila.push(listaCima.concat())
-                    elemento = moverPeçaBaixo(elemento)
-                    listaEsq = moverPeçaEsq(elemento) 
-                    var contador = verificaLista(listaEsq)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaEsq)
-                    if(!bool)      
-                        fila.push(listaEsq.concat())      
-                    elemento = moverPeçaDir(elemento)
-                    listaBaixo = moverPeçaBaixo(elemento)
-                    var contador = verificaLista(listaBaixo)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaBaixo)
-                    if(!bool) 
-                        fila.push(listaBaixo.concat())
-                    elemento = moverPeçaCima(elemento)
-                }
+                       
+                elemento = moverPeçaDir(elemento)
 
-                else if(elemento[6] == 0)
-                {
-                    listaCima = moverPeçaCima(elemento)
-                    var contador = verificaLista(listaCima)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaCima)
-                    if(!bool)      
-                        fila.push(listaCima.concat())
-                    elemento = moverPeçaBaixo(elemento)
-                    listaDir = moverPeçaDir(elemento) 
-                    var contador = verificaLista(listaDir)
-                    if(contador == 0)
-                        parada = true    
-                    bool = fila.includes(listaDir)       
-                    if(bool)     
-                        fila.push(listaDir.concat())                
-                    elemento = moverPeçaEsq(elemento)
+            }
+            else if(elemento[8]==0)
+            {
+                listaEsq = moverPeçaEsq(elemento)    
+                if(!visitados.has([listaEsq]))
+                {          
+                    fila.push(listaEsq.concat()) 
+                    visitados.add(listaEsq)                  
                 }
-                else if(elemento[7]==0)
-                {
-                    listaCima = moverPeçaCima(elemento)
-                    var contador = verificaLista(listaCima)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaCima)
-                    if(!bool)                          
-                        fila.push(listaCima.concat())
-                    elemento = moverPeçaBaixo(elemento)
-                    listaDir = moverPeçaDir(elemento) 
-                    var contador = verificaLista(listaDir)
-                    if(contador == 0)
-                        parada = true 
-                    bool = fila.includes(listaDir)        
-                    if(!bool)       
-                        fila.push(listaDir.concat())            
-                    elemento = moverPeçaEsq(elemento)
-                    listaEsq = moverPeçaEsq(elemento)  
-                    var contador = verificaLista(listaEsq)
-                    if(contador == 0)
-                        parada = true   
-                    bool = fila.includes(listaEsq)      
-                    if(!bool)      
-                        fila.push(listaEsq.concat())           
-                    elemento = moverPeçaDir(elemento)
-
-                }
-                else if(elemento[8]==0)
-                {
-                    listaEsq = moverPeçaEsq(elemento)    
-                    var contador = verificaLista(listaEsq)
-                    if(contador == 0)
-                        parada = true 
-                    bool = fila.includes(listaEsq)    
-                    if(!bool)         
-                        fila.push(listaEsq.concat())            
-                    elemento = moverPeçaDir(elemento)
-                    listaCima = moverPeçaCima(elemento)
-                    var contador = verificaLista(listaCima)
-                    if(contador == 0)
-                        parada = true
-                    bool = fila.includes(listaCima)
-                    if(!bool) 
-                        fila.push(listaCima.concat())
-                    elemento = moverPeçaBaixo(elemento)
-            }}
+                        
+                elemento = moverPeçaDir(elemento)
+                listaCima = moverPeçaCima(elemento)
+                if(!visitados.has([listaCima]))
+                {          
+                    fila.push(listaCima.concat()) 
+                    visitados.add(listaCima)                  
+                }   
+                 
+                elemento = moverPeçaBaixo(elemento)
+            }
         }
-        
+        console.log(visitados);
+        setStatefinal({
+            cell1:listaFinal[0],
+            cell2:listaFinal[1],
+            cell3:listaFinal[2],
+            cell4:listaFinal[3],
+            cell5:listaFinal[4],
+            cell6:listaFinal[5],
+            cell7:listaFinal[6],
+            cell8:listaFinal[7],
+            cell9:listaFinal[8],
+        })
+
     }
 
     const estadoInicial = [
@@ -973,7 +964,19 @@ function Puzzle()
     ]
     const resolver = () =>
     {        
-        resolucao()
+        if(selectState==1)
+        {
+            const inicio = performance.now()
+            resolucaoLargura()
+            const fim = performance.now()
+            setStateResult(
+            {
+                nodes: visitados.size,
+                flag: true,
+                execucao: (fim - inicio).toFixed(4)
+            })
+        }
+            
         // for(let i=0; i<fila.length; i++)
         //alert(fila)
         // while(parada == false)
@@ -1222,6 +1225,7 @@ function Puzzle()
         //         execucao: performance.now().toFixed(4)
         //     }
         // )
+
     }
 
     const embaralhar = () =>
@@ -1317,7 +1321,7 @@ function Puzzle()
     {
         stateResult.flag? 
             <div className="resultado">
-                <p >Quantidade de nós visitados: </p>
+                <p >Quantidade de nós visitados: {stateResult.nodes}</p>
                 <p>Tempo gasto em execução: {stateResult.execucao} ms</p>
                 <p>Tamanho do caminho da solução: </p>
             </div> : ""
