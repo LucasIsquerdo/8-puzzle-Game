@@ -8,8 +8,7 @@ function Puzzle()
     const values = [
            
            { id:1, nome: "Busca Cega (Largura)"},
-           { id:2, nome: "Busca Cega (Profundidade)"},
-           { id:3, nome: "Busca A*"}
+           { id:2, nome: "Busca A*"}
         ]
     
     const [stateResult,setStateResult] = useState({
@@ -147,8 +146,7 @@ function Puzzle()
         return list
 
     }
-    const listaFinal = [1,2,3,4,5,6,7,8,0]
-
+    const listaFinal =[1,2,3,4,5,6,7,8,0]
 
     // const resolver = () =>
     // {
@@ -705,6 +703,7 @@ function Puzzle()
     var visitados = new Set([])//criando um conjunto de nós já visitados
     function resolucaoLargura () 
     {
+        inicio = performance.now()
         var listaBaixo = new Array()
         var cont = 0
         var flag = false
@@ -721,6 +720,7 @@ function Puzzle()
             elemento = fila.shift()
             if(!visitados.has([elemento]))
                 visitados.add(elemento)
+            console.log(visitados);
             if(elemento[0] == 0)
             {
                 listaDir = moverPeçaDir(elemento)
@@ -935,7 +935,7 @@ function Puzzle()
                 elemento = moverPeçaBaixo(elemento)
             }
         }
-        console.log(visitados);
+        fim = performance.now()
         setStatefinal({
             cell1:listaFinal[0],
             cell2:listaFinal[1],
@@ -949,6 +949,9 @@ function Puzzle()
         })
 
     }
+    var fila = new Array()//criando uma fila vazia
+   
+   
 
     const estadoInicial = [
         stateEmbaralhado.cell1,
@@ -962,16 +965,18 @@ function Puzzle()
         stateEmbaralhado.cell9,
 
     ]
+    var fim = 0
+    var inicio = 0
     const resolver = () =>
     {        
+        
         if(selectState==1)
         {
-            const inicio = performance.now()
+            
             resolucaoLargura()
-            const fim = performance.now()
             setStateResult(
             {
-                nodes: visitados.size,
+                nodes: 0,
                 flag: true,
                 execucao: (fim - inicio).toFixed(4)
             })
@@ -1321,7 +1326,7 @@ function Puzzle()
     {
         stateResult.flag? 
             <div className="resultado">
-                <p >Quantidade de nós visitados: {stateResult.nodes}</p>
+                <p >Quantidade de nó(s) visitado(s): {stateResult.nodes}</p>
                 <p>Tempo gasto em execução: {stateResult.execucao} ms</p>
                 <p>Tamanho do caminho da solução: </p>
             </div> : ""
