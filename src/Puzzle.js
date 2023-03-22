@@ -701,6 +701,254 @@ function Puzzle()
     // }    
     var fila = new Array()//criando uma fila vazia
     var visitados = new Set([])//criando um conjunto de nós já visitados
+    // function resolucaoLargura () 
+    // {
+    //     inicio = performance.now()
+    //     var listaBaixo = new Array()
+    //     var cont = 0
+    //     var flag = false
+    //     var listaCima = new Array()
+    //     var listaDir = new Array()
+    //     var listaEsq = new Array()
+    //     var elemento = estadoInicial
+    //     fila.push(elemento.concat())//adicionando nó inicial
+    //     while(fila.length>0 && flag == false)
+    //     {           
+    //         cont = verificaLista(elemento)
+    //         if(cont==0)
+    //             flag = true
+    //         elemento = fila.shift()
+    //         if(!visitados.has([elemento]))
+    //             visitados.add(elemento)
+    //         console.log(visitados);
+    //         if(elemento[0] == 0)
+    //         {
+    //             listaDir = moverPeçaDir(elemento)
+    //             if(!visitados.has([listaDir]))
+    //             {          
+    //                 fila.push(listaDir.concat()) 
+    //                 visitados.add(listaDir)                  
+    //             }
+    //             elemento = moverPeçaEsq(elemento)
+    //             listaBaixo = moverPeçaBaixo(elemento)    
+    //             if(!visitados.has([listaBaixo]))
+    //             {          
+    //                 fila.push(listaBaixo.concat()) 
+    //                 visitados.add(listaBaixo)                  
+    //             }          
+    //             elemento = moverPeçaCima(elemento)
+                
+    //         }
+    //         else if(elemento[1] == 0)
+    //         {
+    //             listaDir = moverPeçaDir(elemento)   
+    //             if(!visitados.has([listaDir]))
+    //             {          
+    //                 fila.push(listaDir.concat()) 
+    //                 visitados.add(listaDir)                  
+    //             }        
+    //             elemento = moverPeçaEsq(elemento)
+    //             listaBaixo = moverPeçaBaixo(elemento)
+    //             if(!visitados.has([listaBaixo]))
+    //             {          
+    //                 fila.push(listaBaixo.concat()) 
+    //                 visitados.add(listaBaixo)                  
+    //             }  
+    //             elemento = moverPeçaCima(elemento)
+    //             listaEsq = moverPeçaEsq(elemento)   
+    //             if(!visitados.has([listaEsq]))
+    //             {          
+    //                 fila.push(listaEsq.concat()) 
+    //                 visitados.add(listaEsq)                  
+    //             }     
+    //             elemento = moverPeçaDir(elemento)
+    //         }
+    //         else if(elemento[2] == 0)
+    //         {
+    //             listaEsq = moverPeçaEsq(elemento)  
+    //             if(!visitados.has([listaEsq]))
+    //             {          
+    //                 fila.push(listaEsq.concat()) 
+    //                 visitados.add(listaEsq)                  
+    //             }       
+    //             elemento = moverPeçaDir(elemento)
+    //             listaBaixo = moverPeçaBaixo(elemento)
+    //             if(!visitados.has([listaBaixo]))
+    //             {          
+    //                 fila.push(listaBaixo.concat()) 
+    //                 visitados.add(listaBaixo)                  
+    //             }  
+    //             elemento = moverPeçaCima(elemento)
+    //         }
+    //         else if(elemento[3] == 0)
+    //         {
+    //             listaDir = moverPeçaDir(elemento)   
+    //             if(!visitados.has([listaDir]))
+    //             {          
+    //                 fila.push(listaDir.concat()) 
+    //                 visitados.add(listaDir)                  
+    //             }
+                     
+    //             elemento = moverPeçaEsq(elemento)
+    //             listaBaixo = moverPeçaBaixo(elemento)
+    //             if(!visitados.has([listaBaixo]))
+    //             {          
+    //                 fila.push(listaBaixo.concat()) 
+    //                 visitados.add(listaBaixo)                  
+    //             }  
+              
+    //             elemento = moverPeçaCima(elemento)
+    //             listaCima = moverPeçaCima(elemento)
+    //             if(!visitados.has([listaCima]))
+    //             {          
+    //                 fila.push(listaCima.concat()) 
+    //                 visitados.add(listaCima)                  
+    //             }  
+              
+    //             elemento = moverPeçaBaixo(elemento)
+    //         }
+    //         else if(elemento[4]==0)
+    //         {
+    //             listaDir = moverPeçaDir(elemento)   
+    //             if(!visitados.has([listaDir]))
+    //             {          
+    //                 fila.push(listaDir.concat()) 
+    //                 visitados.add(listaDir)                  
+    //             }
+                         
+    //             elemento = moverPeçaEsq(elemento)
+    //             listaBaixo = moverPeçaBaixo(elemento)
+    //             if(!visitados.has([listaBaixo]))
+    //             {          
+    //                 fila.push(listaBaixo.concat()) 
+    //                 visitados.add(listaBaixo)                  
+    //             }  
+              
+    //             elemento = moverPeçaCima(elemento)
+    //             listaCima = moverPeçaCima(elemento)
+    //             if(!visitados.has([listaCima]))
+    //             {          
+    //                 fila.push(listaCima.concat()) 
+    //                 visitados.add(listaCima)                  
+    //             }  
+              
+    //             elemento = moverPeçaBaixo(elemento)
+    //             listaEsq = moverPeçaEsq(elemento)
+    //             if(!visitados.has([listaEsq]))
+    //             {          
+    //                 fila.push(listaEsq.concat()) 
+    //                 visitados.add(listaEsq)                  
+    //             }                    
+               
+    //             elemento = moverPeçaDir(elemento)
+    //         }
+    //         else if(elemento[5] == 0)
+    //         {
+    //             listaCima = moverPeçaCima(elemento)
+    //             if(!visitados.has([listaCima]))
+    //             {          
+    //                 fila.push(listaCima.concat()) 
+    //                 visitados.add(listaCima)                  
+    //             }  
+    //             elemento = moverPeçaBaixo(elemento)
+    //             listaEsq = moverPeçaEsq(elemento) 
+    //             if(!visitados.has([listaEsq]))
+    //             {          
+    //                 fila.push(listaEsq.concat()) 
+    //                 visitados.add(listaEsq)                  
+    //             }    
+    //             elemento = moverPeçaDir(elemento)
+    //             listaBaixo = moverPeçaBaixo(elemento)
+    //             if(!visitados.has([listaBaixo]))
+    //             {          
+    //                 fila.push(listaBaixo.concat()) 
+    //                 visitados.add(listaBaixo)                  
+    //             }  
+                   
+    //             elemento = moverPeçaCima(elemento)
+    //         }
+
+    //         else if(elemento[6] == 0)
+    //         {
+    //             listaCima = moverPeçaCima(elemento)
+    //             if(!visitados.has([listaCima]))
+    //             {          
+    //                 fila.push(listaCima.concat()) 
+    //                 visitados.add(listaCima)                  
+    //             }  
+                
+    //             elemento = moverPeçaBaixo(elemento)
+    //             listaDir = moverPeçaDir(elemento) 
+    //             if(!visitados.has([listaDir]))
+    //             {          
+    //                 fila.push(listaDir.concat()) 
+    //                 visitados.add(listaDir)                  
+    //             }
+                               
+    //             elemento = moverPeçaEsq(elemento)
+    //         }
+    //         else if(elemento[7]==0)
+    //         {
+    //             listaCima = moverPeçaCima(elemento)
+    //             if(!visitados.has([listaCima]))
+    //             {          
+    //                 fila.push(listaCima.concat()) 
+    //                 visitados.add(listaCima)                  
+    //             }                           
+               
+    //             elemento = moverPeçaBaixo(elemento)
+    //             listaDir = moverPeçaDir(elemento) 
+    //             if(!visitados.has([listaDir]))
+    //             {          
+    //                 fila.push(listaDir.concat()) 
+    //                 visitados.add(listaDir)                  
+    //             }        
+                    
+    //             elemento = moverPeçaEsq(elemento)
+    //             listaEsq = moverPeçaEsq(elemento)  
+    //             if(!visitados.has([listaEsq]))
+    //             {          
+    //                 fila.push(listaEsq.concat()) 
+    //                 visitados.add(listaEsq)                  
+    //             }
+                       
+    //             elemento = moverPeçaDir(elemento)
+
+    //         }
+    //         else if(elemento[8]==0)
+    //         {
+    //             listaEsq = moverPeçaEsq(elemento)    
+    //             if(!visitados.has([listaEsq]))
+    //             {          
+    //                 fila.push(listaEsq.concat()) 
+    //                 visitados.add(listaEsq)                  
+    //             }
+                        
+    //             elemento = moverPeçaDir(elemento)
+    //             listaCima = moverPeçaCima(elemento)
+    //             if(!visitados.has([listaCima]))
+    //             {          
+    //                 fila.push(listaCima.concat()) 
+    //                 visitados.add(listaCima)                  
+    //             }   
+                 
+    //             elemento = moverPeçaBaixo(elemento)
+    //         }
+    //     }
+    //     fim = performance.now()
+    //     setStatefinal({
+    //         cell1:listaFinal[0],
+    //         cell2:listaFinal[1],
+    //         cell3:listaFinal[2],
+    //         cell4:listaFinal[3],
+    //         cell5:listaFinal[4],
+    //         cell6:listaFinal[5],
+    //         cell7:listaFinal[6],
+    //         cell8:listaFinal[7],
+    //         cell9:listaFinal[8],
+    //     })
+
+    // }
     function resolucaoLargura () 
     {
         inicio = performance.now()
@@ -712,14 +960,10 @@ function Puzzle()
         var listaEsq = new Array()
         var elemento = estadoInicial
         fila.push(elemento.concat())//adicionando nó inicial
-        while(fila.length>0 && flag == false)
+        visitados.add(elemento)
+        visitados[elemento] = true
+        while(fila.length>0)
         {           
-            cont = verificaLista(elemento)
-            if(cont==0)
-                flag = true
-            elemento = fila.shift()
-            if(!visitados.has([elemento]))
-                visitados.add(elemento)
             console.log(visitados);
             if(elemento[0] == 0)
             {
@@ -727,14 +971,14 @@ function Puzzle()
                 if(!visitados.has([listaDir]))
                 {          
                     fila.push(listaDir.concat()) 
-                    visitados.add(listaDir)                  
+                    visitados[listaDir] = true       
                 }
                 elemento = moverPeçaEsq(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)    
                 if(!visitados.has([listaBaixo]))
                 {          
                     fila.push(listaBaixo.concat()) 
-                    visitados.add(listaBaixo)                  
+                    visitados[listaBaixo] = true                  
                 }          
                 elemento = moverPeçaCima(elemento)
                 
@@ -745,21 +989,21 @@ function Puzzle()
                 if(!visitados.has([listaDir]))
                 {          
                     fila.push(listaDir.concat()) 
-                    visitados.add(listaDir)                  
+                    visitados[listaDir] = true                  
                 }        
                 elemento = moverPeçaEsq(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
                 if(!visitados.has([listaBaixo]))
                 {          
                     fila.push(listaBaixo.concat()) 
-                    visitados.add(listaBaixo)                  
+                    visitados[listaBaixo] = true                  
                 }  
                 elemento = moverPeçaCima(elemento)
                 listaEsq = moverPeçaEsq(elemento)   
                 if(!visitados.has([listaEsq]))
                 {          
                     fila.push(listaEsq.concat()) 
-                    visitados.add(listaEsq)                  
+                    visitados[listaEsq] = true                  
                 }     
                 elemento = moverPeçaDir(elemento)
             }
@@ -769,14 +1013,14 @@ function Puzzle()
                 if(!visitados.has([listaEsq]))
                 {          
                     fila.push(listaEsq.concat()) 
-                    visitados.add(listaEsq)                  
+                    visitados[listaEsq] = true                  
                 }       
                 elemento = moverPeçaDir(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
                 if(!visitados.has([listaBaixo]))
                 {          
                     fila.push(listaBaixo.concat()) 
-                    visitados.add(listaBaixo)                  
+                    visitados[listaBaixo] = true                  
                 }  
                 elemento = moverPeçaCima(elemento)
             }
@@ -786,7 +1030,7 @@ function Puzzle()
                 if(!visitados.has([listaDir]))
                 {          
                     fila.push(listaDir.concat()) 
-                    visitados.add(listaDir)                  
+                    visitados[listaDir] = true                  
                 }
                      
                 elemento = moverPeçaEsq(elemento)
@@ -794,7 +1038,7 @@ function Puzzle()
                 if(!visitados.has([listaBaixo]))
                 {          
                     fila.push(listaBaixo.concat()) 
-                    visitados.add(listaBaixo)                  
+                    visitados[listaBaixo] = true                  
                 }  
               
                 elemento = moverPeçaCima(elemento)
@@ -802,7 +1046,7 @@ function Puzzle()
                 if(!visitados.has([listaCima]))
                 {          
                     fila.push(listaCima.concat()) 
-                    visitados.add(listaCima)                  
+                    visitados[listaCima] = true                  
                 }  
               
                 elemento = moverPeçaBaixo(elemento)
@@ -813,7 +1057,7 @@ function Puzzle()
                 if(!visitados.has([listaDir]))
                 {          
                     fila.push(listaDir.concat()) 
-                    visitados.add(listaDir)                  
+                    visitados[listaDir] = true                  
                 }
                          
                 elemento = moverPeçaEsq(elemento)
@@ -821,7 +1065,7 @@ function Puzzle()
                 if(!visitados.has([listaBaixo]))
                 {          
                     fila.push(listaBaixo.concat()) 
-                    visitados.add(listaBaixo)                  
+                    visitados[listaBaixo] = true                  
                 }  
               
                 elemento = moverPeçaCima(elemento)
@@ -829,7 +1073,7 @@ function Puzzle()
                 if(!visitados.has([listaCima]))
                 {          
                     fila.push(listaCima.concat()) 
-                    visitados.add(listaCima)                  
+                    visitados[listaCima] = true                  
                 }  
               
                 elemento = moverPeçaBaixo(elemento)
@@ -837,7 +1081,7 @@ function Puzzle()
                 if(!visitados.has([listaEsq]))
                 {          
                     fila.push(listaEsq.concat()) 
-                    visitados.add(listaEsq)                  
+                    visitados[listaEsq] = true                  
                 }                    
                
                 elemento = moverPeçaDir(elemento)
@@ -848,21 +1092,21 @@ function Puzzle()
                 if(!visitados.has([listaCima]))
                 {          
                     fila.push(listaCima.concat()) 
-                    visitados.add(listaCima)                  
+                    visitados[listaCima] = true                  
                 }  
                 elemento = moverPeçaBaixo(elemento)
                 listaEsq = moverPeçaEsq(elemento) 
                 if(!visitados.has([listaEsq]))
                 {          
                     fila.push(listaEsq.concat()) 
-                    visitados.add(listaEsq)                  
+                    visitados[listaEsq] = true                  
                 }    
                 elemento = moverPeçaDir(elemento)
                 listaBaixo = moverPeçaBaixo(elemento)
                 if(!visitados.has([listaBaixo]))
                 {          
                     fila.push(listaBaixo.concat()) 
-                    visitados.add(listaBaixo)                  
+                    visitados[listaBaixo] = true                  
                 }  
                    
                 elemento = moverPeçaCima(elemento)
@@ -874,7 +1118,7 @@ function Puzzle()
                 if(!visitados.has([listaCima]))
                 {          
                     fila.push(listaCima.concat()) 
-                    visitados.add(listaCima)                  
+                    visitados[listaCima] = true                  
                 }  
                 
                 elemento = moverPeçaBaixo(elemento)
@@ -882,7 +1126,7 @@ function Puzzle()
                 if(!visitados.has([listaDir]))
                 {          
                     fila.push(listaDir.concat()) 
-                    visitados.add(listaDir)                  
+                    visitados[listaDir] = true                  
                 }
                                
                 elemento = moverPeçaEsq(elemento)
@@ -893,7 +1137,7 @@ function Puzzle()
                 if(!visitados.has([listaCima]))
                 {          
                     fila.push(listaCima.concat()) 
-                    visitados.add(listaCima)                  
+                    visitados[listaCima] = true                  
                 }                           
                
                 elemento = moverPeçaBaixo(elemento)
@@ -901,7 +1145,7 @@ function Puzzle()
                 if(!visitados.has([listaDir]))
                 {          
                     fila.push(listaDir.concat()) 
-                    visitados.add(listaDir)                  
+                    visitados[listaDir] = true                  
                 }        
                     
                 elemento = moverPeçaEsq(elemento)
@@ -909,7 +1153,7 @@ function Puzzle()
                 if(!visitados.has([listaEsq]))
                 {          
                     fila.push(listaEsq.concat()) 
-                    visitados.add(listaEsq)                  
+                    visitados[listaEsq] = true                  
                 }
                        
                 elemento = moverPeçaDir(elemento)
@@ -921,7 +1165,7 @@ function Puzzle()
                 if(!visitados.has([listaEsq]))
                 {          
                     fila.push(listaEsq.concat()) 
-                    visitados.add(listaEsq)                  
+                    visitados[listaEsq] = true                  
                 }
                         
                 elemento = moverPeçaDir(elemento)
@@ -929,7 +1173,7 @@ function Puzzle()
                 if(!visitados.has([listaCima]))
                 {          
                     fila.push(listaCima.concat()) 
-                    visitados.add(listaCima)                  
+                    visitados[listaCima] = true                  
                 }   
                  
                 elemento = moverPeçaBaixo(elemento)
@@ -949,8 +1193,6 @@ function Puzzle()
         })
 
     }
-    var fila = new Array()//criando uma fila vazia
-   
    
 
     const estadoInicial = [
